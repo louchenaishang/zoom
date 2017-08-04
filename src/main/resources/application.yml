@@ -1,0 +1,75 @@
+ # sys
+sys:
+  storage: /tmp/zoom/storage
+  version: "${project.version}"
+
+# Server configuration
+server:
+  port: 8080
+  contextPath: /
+  compression:
+    enabled: true
+    mime-types: application/javascript,application/json,text/css,text/html,text/plain
+
+# Spring configuration
+spring:
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
+    locale: zh_CN
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss.SSS
+  redis:
+    host: localhost
+    password:
+    port: 6379
+  datasource:
+    primary:
+      url: jdbc:mysql://localhost:3306/springboot
+      username: root
+      password: 123456
+      driver-class-name: com.mysql.jdbc.Driver
+      testWhileIdle: true
+      validationQuery: SELECT 1
+      initial-size: 5
+      max-idle: 25
+      max-active: 100
+      test-on-borrow: true
+  jpa:
+    show-sql: true
+    properties:
+      hibernate.hbm2ddl.auto: update
+      hibernate.format_sql: true
+      hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
+      hibernate.cache.use_second_level_cache: false
+      hibernate.cache.use_query_cache: false
+      hibernate.current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
+      hibernate.connection.release_mode: on_close
+      hibernate.connection.isolation: 4
+      hibernate.search.default.directory_provider: filesystem
+      hibernate.search.default.indexBase: ${tmpdir}/zoom_search_index
+#      hibernate.search.default.indexmanager: elasticsearch
+#      hibernate.search.default.elasticsearch.required_index_status: yellow
+#      hibernate.search.default.elasticsearch.host: http://localhost:9200
+#      hibernate.search.default.elasticsearch.username:
+#      hibernate.search.default.elasticsearch.password:
+
+# JWT
+jwt:
+  header: Authorization
+  secret: "zomm-application"
+  expiration: 3600
+  tokenHead: "Bearer "
+  route:
+    authentication:
+      path: "/auth"
+      refresh: "/refresh"
+      register: "/auth/register"
+      principal: "/auth/principal"
+
+
+# Logging configuration
+logging:
+  level:
+    root: WARN
+    com.github.louchen.zoom: INFO
