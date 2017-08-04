@@ -9,9 +9,9 @@
         <el-form-item>
           <el-button type="primary" v-on:click="getUsers">查询</el-button>
         </el-form-item>
-        <!--<el-form-item>-->
-        <!--<el-button type="primary" @click="handleAdd">新增</el-button>-->
-        <!--</el-form-item>-->
+        <el-form-item v-if="isAdmin">
+        <el-button type="primary" @click="handleAdd">新增</el-button>
+        </el-form-item>
       </el-form>
     </el-col>
 
@@ -30,8 +30,8 @@
         </el-table-column>
         <el-table-column inline-template :context="_self" label="操作" width="150">
 	<span>
-					<el-button size="small" @click="handleEdit(row)" v-show="isAdmin">编辑</el-button>
-					<el-button type="danger" size="small" @click="handleDel(row)" v-show="isAdmin">删除</el-button>
+					<el-button size="small" @click="handleEdit(row)" v-if="isAdmin">编辑</el-button>
+					<el-button type="danger" size="small" @click="handleDel(row)" v-if="isAdmin">删除</el-button>
 				</span>
         </el-table-column>
       </el-table>

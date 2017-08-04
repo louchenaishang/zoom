@@ -1,5 +1,5 @@
 <template>
-  <el-form ref="form" label-width="80px" style="margin:20px;width:60%;min-width:600px;">
+  <el-form ref="form" label-width="80px" class="form">
     <el-form-item label="用户名">
       <template v-if="principal && principal.principal&& principal.principal.username">
         {{ principal.principal.username }}
@@ -13,6 +13,9 @@
         </template>
       </template>
     </el-form-item>
+    <el-form-item label="TOKEN">
+        {{ token }}
+    </el-form-item>
   </el-form>
 </template>
 
@@ -25,7 +28,8 @@
     data() {
       return {
         name: 'welcome',
-        title: 'welcome'
+        title: 'welcome',
+        token: ''
       };
     },
     computed: {
@@ -48,10 +52,16 @@
     },
     mounted() {
       this.getPrincipal()
+      this.token = JSON.parse(sessionStorage.getItem('token'))
     }
   }
 </script>
 
 <style scoped>
-
+  .form{
+    margin:20px;
+    width:90%;
+    min-width:600px;
+    word-wrap:break-word;
+  }
 </style>

@@ -2,6 +2,7 @@ package com.github.louchen.zoom.api.user.controller;
 
 import com.github.louchen.zoom.api.user.model.User;
 import com.github.louchen.zoom.api.user.repository.UserRepository;
+import com.github.louchen.zoom.api.user.service.UserService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,6 +27,8 @@ public class UserController {
 
     @Autowired
     private UserRepository repository;
+    @Autowired
+    private UserService userService;
 
     /**
      * 获取用户列表
@@ -46,7 +49,7 @@ public class UserController {
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(method = RequestMethod.POST)
     User addUser(@RequestBody User addedUser) {
-        return repository.save(addedUser);
+        return userService.register(addedUser);
     }
 
     @PostAuthorize("returnObject.username == principal.username or hasRole('ROLE_ADMIN')")
