@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Created by louchen on 2017/6/30.
+ * 控制器 - 渠道
+ *
+ * @author louchen
  */
 @RestController
 @RequestMapping(path = "/api/channel")

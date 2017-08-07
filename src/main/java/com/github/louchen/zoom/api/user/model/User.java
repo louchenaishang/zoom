@@ -1,6 +1,7 @@
 package com.github.louchen.zoom.api.user.model;
 
 import com.github.louchen.zoom.api.role.model.Role;
+import com.github.louchen.zoom.base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -35,7 +37,7 @@ import java.util.Set;
 @Entity
 @Table(name = "User")
 @Indexed
-public class User {
+public class User extends BaseEntity<Long> {
 
     @Id
     @Column
@@ -64,29 +66,9 @@ public class User {
     @Field
     private String road;
 
-    @Column
-    @Field
-    @DateBridge(resolution = Resolution.SECOND)
-    private Date createTime = new Date();
-
-    @Column
-    @Field
-    @DateBridge(resolution = Resolution.SECOND)
-    private Date lastPasswordResetDate;
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private Set<Role> roles = new HashSet<>();
-
-    @PrePersist
-    public void prePersist() {
-        createTime = new Date();
-    }
-
-    @PreUpdate
-    public void preUpdate() {
-
-    }
 
 }
 

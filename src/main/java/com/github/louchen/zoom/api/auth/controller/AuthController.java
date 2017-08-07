@@ -1,5 +1,6 @@
-package com.github.louchen.zoom.api.auth;
+package com.github.louchen.zoom.api.auth.controller;
 
+import com.github.louchen.zoom.api.auth.service.AuthService;
 import com.github.louchen.zoom.api.user.model.User;
 import com.github.louchen.zoom.secruity.JwtAuthenticationRequest;
 import com.github.louchen.zoom.secruity.JwtAuthenticationResponse;
@@ -18,6 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 
+/**
+ * 控制器 - 认证
+ *
+ * @author louchen
+ */
 @RestController
 @RequestMapping(path = "/api")
 @Slf4j

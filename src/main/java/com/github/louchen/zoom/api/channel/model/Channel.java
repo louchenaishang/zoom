@@ -1,6 +1,5 @@
 package com.github.louchen.zoom.api.channel.model;
 
-import com.github.louchen.zoom.api.city.model.City;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,8 +21,6 @@ public class Channel {
     private String id;
 
     private String name;
-
-    private City city;
 
     @TimeToLive
     private Long expiration=100l;

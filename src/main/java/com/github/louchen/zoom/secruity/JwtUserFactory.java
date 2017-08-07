@@ -26,7 +26,7 @@ public final class JwtUserFactory {
                 user.getPassword(),
                 user.getEmail(),
                 mapToGrantedAuthorities(roles),
-                user.getLastPasswordResetDate()
+                user.getUpdateTime()
         );
 
         log.info("create jwt,{}", jwt.toString());

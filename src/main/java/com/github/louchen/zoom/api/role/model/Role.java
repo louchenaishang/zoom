@@ -1,5 +1,6 @@
 package com.github.louchen.zoom.api.role.model;
 
+import com.github.louchen.zoom.base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,21 +27,16 @@ import java.util.Date;
 @Entity
 @Table(name = "Role")
 @Indexed
-public class Role {
+public class Role extends BaseEntity<Long> {
 
     @Id
     @Column
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
     @Field
     private String name;
-
-    @Column
-    @Field
-    @DateBridge(resolution = Resolution.SECOND)
-    private Date createTime = new Date();
 
 }
 

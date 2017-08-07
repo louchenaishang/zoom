@@ -3,6 +3,7 @@ package com.github.louchen.zoom.api.role.service;
 import com.github.louchen.zoom.api.role.exception.InitRoleErrorException;
 import com.github.louchen.zoom.api.role.model.Role;
 import com.github.louchen.zoom.api.role.repository.RoleRepository;
+import com.github.louchen.zoom.base.BaseServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class RoleServiceImpl implements RoleService, InitializingBean {
+public class RoleServiceImpl extends BaseServiceImpl<Role, Long> implements RoleService, InitializingBean {
 
     private Role DEFAULT_ROLE;
     private static final String DEFAULT_ROLE_NAME = "ROLE_USER";

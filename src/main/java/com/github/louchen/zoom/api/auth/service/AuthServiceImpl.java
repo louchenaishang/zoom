@@ -1,4 +1,4 @@
-package com.github.louchen.zoom.api.auth;
+package com.github.louchen.zoom.api.auth.service;
 
 import com.github.louchen.zoom.api.user.model.User;
 import com.github.louchen.zoom.api.user.service.UserService;
@@ -16,6 +16,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Service - 认证
+ *
+ * @author louchen
+ */
 @Service
 @Slf4j
 public class AuthServiceImpl implements AuthService {
