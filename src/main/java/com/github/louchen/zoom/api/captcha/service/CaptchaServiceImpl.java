@@ -1,5 +1,6 @@
 package com.github.louchen.zoom.api.captcha.service;
 
+import com.github.louchen.zoom.utils.SpringUtils;
 import com.google.code.kaptcha.Producer;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +31,11 @@ public class CaptchaServiceImpl implements CaptchaService {
     private static final int live = 3;
 
     public BufferedImage createImage(String captchaId) {
-        Assert.hasText(captchaId);
+        Assert.hasText(captchaId, SpringUtils.getMessage("common.error.unprocessableEntity"));
         String keyInRedis = getKey(captchaId);
+
+        String captchaInRedis = stringRedisTemplate.opsForValue().get(keyInRedis);
+        Assert.isNull(captchaInRedis, SpringUtils.getMessage("common.error.unprocessableEntity"));
 
         String captcha = captchaProducer.createText();
         stringRedisTemplate.opsForValue().set(keyInRedis, captcha, 3, TimeUnit.MINUTES);

@@ -57,7 +57,7 @@ public final class SpringUtils implements ApplicationContextAware, DisposableBea
      * @return 实例
      */
     public static Object getBean(String name) {
-        Assert.hasText(name);
+        Assert.hasText(name, "[Assertion failed] - this String argument must have text; it must not be null, empty, or blank");
 
         return applicationContext.getBean(name);
     }
@@ -69,7 +69,7 @@ public final class SpringUtils implements ApplicationContextAware, DisposableBea
      * @return 实例
      */
     public static <T> T getBean(Class<T> type) {
-        Assert.notNull(type);
+        Assert.notNull(type, "[Assertion failed] - this argument is required; it must not be null");
 
         return applicationContext.getBean(type);
     }
@@ -82,8 +82,8 @@ public final class SpringUtils implements ApplicationContextAware, DisposableBea
      * @return 实例
      */
     public static <T> T getBean(String name, Class<T> type) {
-        Assert.hasText(name);
-        Assert.notNull(type);
+        Assert.hasText(name, "[Assertion failed] - this String argument must have text; it must not be null, empty, or blank");
+        Assert.notNull(type, "[Assertion failed] - this argument is required; it must not be null");
 
         return applicationContext.getBean(name, type);
     }
@@ -95,7 +95,7 @@ public final class SpringUtils implements ApplicationContextAware, DisposableBea
      * @return 实例
      */
     public static <T> Map<String, T> getBeansOfType(Class<T> type) {
-        Assert.notNull(type);
+        Assert.notNull(type, "[Assertion failed] - this argument is required; it must not be null");
 
         return applicationContext.getBeansOfType(type);
     }
@@ -108,7 +108,7 @@ public final class SpringUtils implements ApplicationContextAware, DisposableBea
      * @return 国际化消息
      */
     public static String getMessage(String code, Object... args) {
-        Assert.hasText(code);
+        Assert.hasText(code, "[Assertion failed] - this String argument must have text; it must not be null, empty, or blank");
 
         LocaleResolver localeResolver = getBean("localeResolver", LocaleResolver.class);
         Locale locale = localeResolver.resolveLocale(null);

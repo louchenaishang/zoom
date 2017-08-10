@@ -1,5 +1,6 @@
 package com.github.louchen.zoom.base;
 
+import com.github.louchen.zoom.utils.SpringUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.slf4j.Logger;
@@ -45,11 +46,6 @@ public abstract class BaseServiceImpl<T extends BaseEntity<ID>, ID extends Seria
     @Autowired
     private EntityManager entityManager;
 
-//    @Autowired
-//    protected void setJpaRepository(JpaRepository<T, ID> jpaRepository) {
-//        this.jpaRepository = jpaRepository;
-//    }
-
     @Override
     @Transactional(readOnly = true)
     public T find(ID id) {
@@ -80,8 +76,8 @@ public abstract class BaseServiceImpl<T extends BaseEntity<ID>, ID extends Seria
     @Override
     @Transactional
     public T save(T entity) {
-        Assert.notNull(entity);
-        Assert.isTrue(entity.isNew());
+        Assert.notNull(entity, message("common.error.paramMustNotBeNull"));
+        Assert.isTrue(entity.isNew(), message("common.error.entityIsNew"));
 
         jpaRepository.save(entity);
         return entity;
@@ -90,8 +86,8 @@ public abstract class BaseServiceImpl<T extends BaseEntity<ID>, ID extends Seria
     @Override
     @Transactional
     public T update(T entity) {
-        Assert.notNull(entity);
-        Assert.isTrue(!entity.isNew());
+        Assert.notNull(entity, message("common.error.paramMustNotBeNull"));
+        Assert.isTrue(!entity.isNew(),message("common.error.entityIsNotNew"));
 
         if (!isManaged(entity)) {
             T persistant = find(getIdentifier(entity));
@@ -161,29 +157,29 @@ public abstract class BaseServiceImpl<T extends BaseEntity<ID>, ID extends Seria
 
     @Override
     public ID getIdentifier(T entity) {
-        Assert.notNull(entity);
+        Assert.notNull(entity, message("common.error.paramMustNotBeNull"));
 
         return (ID) entityManager.getEntityManagerFactory().getPersistenceUnitUtil().getIdentifier(entity);
     }
 
     @Override
     public boolean isLoaded(T entity) {
-        Assert.notNull(entity);
+        Assert.notNull(entity, message("common.error.paramMustNotBeNull"));
 
         return entityManager.getEntityManagerFactory().getPersistenceUnitUtil().isLoaded(entity);
     }
 
     @Override
     public boolean isLoaded(T entity, String attributeName) {
-        Assert.notNull(entity);
-        Assert.hasText(attributeName);
+        Assert.notNull(entity, message("common.error.paramMustNotBeNull"));
+        Assert.hasText(attributeName, message("common.error.paramMustNotBeNull"));
 
         return entityManager.getEntityManagerFactory().getPersistenceUnitUtil().isLoaded(entity, attributeName);
     }
 
     @Override
     public boolean isManaged(T entity) {
-        Assert.notNull(entity);
+        Assert.notNull(entity, message("common.error.paramMustNotBeNull"));
 
         return entityManager.contains(entity);
     }
@@ -197,7 +193,7 @@ public abstract class BaseServiceImpl<T extends BaseEntity<ID>, ID extends Seria
 
     @Override
     public LockModeType getLockMode(T entity) {
-        Assert.notNull(entity);
+        Assert.notNull(entity, message("common.error.paramMustNotBeNull"));
 
         return entityManager.getLockMode(entity);
     }
@@ -219,6 +215,11 @@ public abstract class BaseServiceImpl<T extends BaseEntity<ID>, ID extends Seria
         entityManager.flush();
     }
 
+    @Override
+    public String message(String code, Object... args) {
+        return SpringUtils.getMessage(code, args);
+    }
+
     /**
      * 拷贝对象属性
      *
@@ -227,8 +228,8 @@ public abstract class BaseServiceImpl<T extends BaseEntity<ID>, ID extends Seria
      * @param ignoreProperties 忽略属性
      */
     protected void copyProperties(T source, T target, String... ignoreProperties) {
-        Assert.notNull(source);
-        Assert.notNull(target);
+        Assert.notNull(source, message("common.error.paramMustNotBeNull"));
+        Assert.notNull(target, message("common.error.paramMustNotBeNull"));
 
         PropertyDescriptor[] propertyDescriptors = PropertyUtils.getPropertyDescriptors(target);
         for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {

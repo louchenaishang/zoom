@@ -60,7 +60,7 @@ public class ReflectionUtils {
      * 循环向上转型,获取对象的DeclaredField.
      */
     protected static Field getDeclaredField(final Object object, final String fieldName) {
-        Assert.notNull(object, "object不能为空");
+        Assert.notNull(object, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
         return getDeclaredField(object.getClass(), fieldName);
     }
 
@@ -69,8 +69,8 @@ public class ReflectionUtils {
      */
     @SuppressWarnings("unchecked")
     protected static Field getDeclaredField(final Class clazz, final String fieldName) {
-        Assert.notNull(clazz, "clazz不能为空");
-        Assert.hasText(fieldName, "fieldName");
+        Assert.notNull(clazz, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
+        Assert.hasText(fieldName, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
         for (Class superClass = clazz; superClass != Object.class; superClass = superClass.getSuperclass()) {
             try {
                 return superClass.getDeclaredField(fieldName);

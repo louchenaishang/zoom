@@ -177,4 +177,15 @@ public interface BaseService<T extends BaseEntity<ID>, ID extends Serializable> 
      */
     void flush();
 
+    /**
+     * 获取国际化消息
+     *
+     * @param code
+     *            代码
+     * @param args
+     *            参数
+     * @return 国际化消息
+     */
+    String message(String code, Object... args);
+
 }

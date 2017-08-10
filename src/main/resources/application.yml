@@ -15,6 +15,11 @@ server:
 spring:
   application:
     name: zoom
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
   jackson:
     serialization:
       INDENT_OUTPUT: true

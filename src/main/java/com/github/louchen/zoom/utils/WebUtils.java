@@ -51,7 +51,7 @@ public final class WebUtils {
      * @return 是否为AJAX请求
      */
     public static boolean isAjaxRequest(HttpServletRequest request) {
-        Assert.notNull(request);
+        Assert.notNull(request, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
 
         return StringUtils.equalsIgnoreCase(request.getHeader("X-Requested-With"), "XMLHttpRequest");
     }
@@ -66,9 +66,9 @@ public final class WebUtils {
      * @param http10Compatible 是否兼容HTTP1.0
      */
     public static void sendRedirect(HttpServletRequest request, HttpServletResponse response, String url, boolean contextRelative, boolean http10Compatible) {
-        Assert.notNull(request);
-        Assert.notNull(response);
-        Assert.hasText(url);
+        Assert.notNull(request, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
+        Assert.notNull(response, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
+        Assert.hasText(url, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
 
         StringBuilder targetUrl = new StringBuilder();
         if (contextRelative && url.startsWith("/")) {
