@@ -18,7 +18,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
- * Created by louchen on 2017/6/28.
+ * 配置类 - rest安全
+ *
+ * @author louchen
  */
 @Configuration
 @EnableWebSecurity
@@ -72,6 +74,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.css",
                         "/**/*.js"
                 ).permitAll()
+                // 获取验证码允许匿名访问
+                .antMatchers(HttpMethod.GET,"/api/captcha/image").permitAll()
                 // 对于获取token的rest api要允许匿名访问
                 .antMatchers("/api/auth/**").permitAll()
                 // 除上面外的所有请求全部需要鉴权认证

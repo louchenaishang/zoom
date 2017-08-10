@@ -12,7 +12,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 
 /**
- * Created by louchen on 2017/7/15.
+ * 配置类 - jpa
+ *
+ * @author louchen
  */
 @Configuration
 @EnableJpaRepositories("com.github.louchen.zoom.api")

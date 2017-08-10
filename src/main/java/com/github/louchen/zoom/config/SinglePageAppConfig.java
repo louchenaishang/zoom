@@ -20,9 +20,10 @@ import java.nio.charset.Charset;
 import java.util.List;
 
 /**
- * Created by louchen on 2017/6/28.
+ * 配置类 - 单页配置
+ *
+ * @author louchen
  */
-
 @Configuration
 public class SinglePageAppConfig extends WebMvcConfigurerAdapter {
 
