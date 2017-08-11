@@ -48,7 +48,7 @@ spring:
       max-active: 100
       test-on-borrow: true
   jpa:
-    show-sql: true
+    show-sql: false
     properties:
       hibernate.hbm2ddl.auto: update
       hibernate.format_sql: true

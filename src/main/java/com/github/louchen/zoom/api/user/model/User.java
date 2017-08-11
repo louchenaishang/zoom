@@ -49,10 +49,6 @@ public class User extends BaseEntity<Long> {
     private String username;
 
     @Column
-    @Field
-    private String tel;
-
-    @Column
     private String password;
 
     @Column
@@ -60,11 +56,15 @@ public class User extends BaseEntity<Long> {
 
     @Column
     @Field
-    private String email;
+    private String mobile;
 
     @Column
     @Field
-    private String road;
+    private String email;
+
+
+
+
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "role_id")})

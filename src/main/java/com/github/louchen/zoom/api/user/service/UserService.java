@@ -13,4 +13,6 @@ public interface UserService extends BaseService<User, Long> {
 
     User register(User userToAdd);
 
+    User modify(User userToUpdate);
+
 }

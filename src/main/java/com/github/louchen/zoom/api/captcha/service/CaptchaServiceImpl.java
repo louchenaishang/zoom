@@ -64,7 +64,7 @@ public class CaptchaServiceImpl implements CaptchaService {
      * @return
      */
     private String getKey(String captchaId) {
-        return new StringBuilder().append(appName).append("-").append(captchaId).toString();
+        return new StringBuilder().append(appName).append("-captcha-").append(captchaId).toString();
     }
 
 }

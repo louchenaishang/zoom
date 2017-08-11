@@ -16,7 +16,7 @@
         <captcha :captchaId="ruleForm2.captchaId" scene="login" @click.native.prevent="refreshCaptchaId" class="captcha"></captcha>
       </el-col>
     </el-form-item>
-    <el-checkbox v-model="checked" checked style="margin:0px 0px 35px 0px;">记住密码</el-checkbox>
+    <!--<el-checkbox v-model="checked" checked style="margin:0px 0px 35px 0px;">记住密码</el-checkbox>-->
     <el-form-item style="width:100%;">
       <el-button type="primary" style="width:100%;" @click.native.prevent="handleSubmit2" :loading="logining">登录
       </el-button>
@@ -50,6 +50,10 @@
           ],
           checkPass: [
             {required: true, message: '请输入密码', trigger: 'blur'},
+            //{ validator: validaePass2 }
+          ],
+          captcha: [
+            {required: true, message: '请输入验证码', trigger: 'blur'},
             //{ validator: validaePass2 }
           ]
         },
@@ -92,7 +96,7 @@
           } else {
             _this.$notify.error({
               title: '错误',
-              message: '填把信息补充完整'
+              message: '请把信息补充完整'
             });
             return false;
           }
@@ -115,7 +119,7 @@
     background-clip: padding-box;
     margin-bottom: 20px;
     background-color: #F9FAFC;
-    margin: 180px auto;
+    margin: 120px auto;
     width: 400px;
     border: 2px solid #8492A6;
   }

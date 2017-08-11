@@ -2,6 +2,7 @@ package com.github.louchen.zoom.api.user.controller;
 
 import com.github.louchen.zoom.api.user.model.User;
 import com.github.louchen.zoom.api.user.service.UserService;
+import com.github.louchen.zoom.utils.AssertUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -57,12 +58,8 @@ public class UserController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public User updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
-        User one = userService.find(id);
-        one.setUsername(updatedUser.getUsername());
-        one.setSex(updatedUser.getSex());
-        one.setRoad(updatedUser.getRoad());
-        return userService.save(one);
+    public User updateUser(@RequestBody User updatedUser) {
+        return userService.modify(updatedUser);
     }
 
     @PreAuthorize("hasRole('ADMIN')")

@@ -47,17 +47,23 @@
     <!--编辑界面-->
     <el-dialog :title="editFormTtile" v-model="editFormVisible" :close-on-click-modal="false">
       <el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
-        <el-form-item label="姓名" prop="username">
+        <el-form-item label="用户名" prop="username">
           <el-input v-model="editForm.username" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="性别">
+        <el-form-item label="密码" prop="password" v-if="editFormTtile=='新增'">
+          <el-input type="password" v-model="editForm.password" auto-complete="off" placeholder="密码"></el-input>
+        </el-form-item>
+        <el-form-item label="性别" prop="sex">
           <el-select v-model="editForm.sex" placeholder="请选择性别">
             <el-option label="男" value="男"></el-option>
             <el-option label="女" value="女"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="地址">
-          <el-input type="textarea" v-model="editForm.road"></el-input>
+        <el-form-item label="手机" prop="mobile">
+          <el-input v-model="editForm.mobile"></el-input>
+        </el-form-item>
+        <el-form-item label="邮箱" prop="email">
+          <el-input v-model="editForm.email"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -84,22 +90,25 @@
         page: 1,
         size: 20,
         listLoading: false,
-        MALE: 'MALE',
-        FEMALE: 'FEMALE',
         editFormVisible: false,//编辑界面显是否显示
         editFormTtile: '编辑',//编辑界面标题
         //编辑界面数据
         editForm: {
           id: 0,
           username: '',
+          password: '',
           sex: '男',
-          road: ''
+          mobile: '',
+          email: '',
         },
         editLoading: false,
         btnEditText: '提 交',
         editFormRules: {
           username: [
             {required: true, message: '请输入姓名', trigger: 'blur'}
+          ],
+          password: [
+            {required: true, message: '请输入密码', trigger: 'blur'}
           ]
         }
 
@@ -179,9 +188,21 @@
         this.editFormTtile = '编辑'
         this.editForm.id = row.id
         this.editForm.username = row.username
+        this.editForm.password = row.password
         this.editForm.sex = row.sex
-        this.editForm.createTime = row.createTime
-        this.editForm.road = row.road
+        this.editForm.mobile = row.mobile
+        this.editForm.email = row.email
+      },
+      //显示新增界面
+      handleAdd: function () {
+        this.editFormVisible = true
+        this.editFormTtile = '新增'
+        this.editForm.id = 0
+        this.editForm.username = ''
+        this.editForm.password = ''
+        this.editForm.sex = '男'
+        this.editForm.mobile = ''
+        this.editForm.email = ''
       },
       //编辑 or 新增
       editSubmit: function () {
@@ -198,8 +219,10 @@
                 //新增
                 let para = {
                   username: _this.editForm.username,
+                  password: _this.editForm.password,
                   sex: _this.editForm.sex,
-                  road: _this.editForm.road,
+                  mobile: _this.editForm.mobile,
+                  email: _this.editForm.email,
                 }
                 Api.addUser(para).then((res) => {
                   _this.editLoading = false
@@ -222,8 +245,10 @@
                 let para = {
                   id: _this.editForm.id,
                   username: _this.editForm.username,
+                  password: _this.editForm.password,
                   sex: _this.editForm.sex,
-                  road: _this.editForm.road,
+                  mobile: _this.editForm.mobile,
+                  email: _this.editForm.email,
                 }
                 Api.editUser(para).then((res) => {
                   _this.editLoading = false
@@ -249,18 +274,6 @@
         })
 
       },
-      //显示新增界面
-      handleAdd: function () {
-        var _this = this
-
-        this.editFormVisible = true
-        this.editFormTtile = '新增'
-
-        this.editForm.id = 0
-        this.editForm.username = ''
-        this.editForm.sex = '男'
-        this.editForm.road = ''
-      }
     },
     mounted() {
       this.getPrincipal()

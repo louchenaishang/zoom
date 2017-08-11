@@ -4,32 +4,40 @@ import com.github.louchen.zoom.api.role.exception.InitRoleErrorException;
 import com.github.louchen.zoom.api.role.model.Role;
 import com.github.louchen.zoom.api.role.repository.RoleRepository;
 import com.github.louchen.zoom.base.BaseServiceImpl;
+import com.google.common.collect.Sets;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Set;
 
 @Service
 @Slf4j
 public class RoleServiceImpl extends BaseServiceImpl<Role, Long> implements RoleService, InitializingBean {
 
     private Role DEFAULT_ROLE;
-    private static final String DEFAULT_ROLE_NAME = "ROLE_USER";
+    public static final String ROLE_USER = "ROLE_USER";
+    public static final String ROLE_ADMIN = "ROLE_ADMIN";
+    private static final Set<String> ROLES = Sets.newHashSet(ROLE_USER, ROLE_ADMIN);
 
     @Autowired
     private RoleRepository roleRepository;
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        Role defaultRole = roleRepository.findByName(DEFAULT_ROLE_NAME);
-        if (defaultRole == null) {
-            defaultRole = new Role();
-            defaultRole.setName(DEFAULT_ROLE_NAME);
-            roleRepository.save(defaultRole);
-        }
-        this.DEFAULT_ROLE = defaultRole;
+        ROLES.forEach(name -> {
+            Role role = roleRepository.findByName(name);
+            if (role == null) {
+                role = new Role();
+                role.setName(name);
+                roleRepository.save(role);
+            }
+        });
+
+        DEFAULT_ROLE = roleRepository.findByName(ROLE_USER);
         if (DEFAULT_ROLE == null) {
-            throw new InitRoleErrorException("初始化失败");
+            throw new InitRoleErrorException();
         }
     }
 
