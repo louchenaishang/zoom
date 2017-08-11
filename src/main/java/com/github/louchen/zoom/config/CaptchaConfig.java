@@ -1,6 +1,5 @@
 package com.github.louchen.zoom.config;
 
-import com.github.louchen.zoom.api.captcha.CaptchaBackground;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,14 +39,6 @@ public class CaptchaConfig {
         defaultKaptcha.setConfig(config);
 
         return defaultKaptcha;
-    }
-
-    @Bean
-    public CaptchaBackground captchaBackground(){
-        CaptchaBackground captchaBackground = new CaptchaBackground();
-        captchaBackground.getBackgroundImages();
-
-        return captchaBackground;
     }
 
     /*

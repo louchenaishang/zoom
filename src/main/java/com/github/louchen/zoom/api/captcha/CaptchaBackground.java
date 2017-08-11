@@ -2,21 +2,19 @@ package com.github.louchen.zoom.api.captcha;
 
 import com.google.code.kaptcha.BackgroundProducer;
 import com.google.code.kaptcha.util.Configurable;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.RandomUtils;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.core.io.support.ResourcePatternResolver;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -25,6 +23,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  *
  * @author louchen
  */
+@Slf4j
 public class CaptchaBackground extends Configurable implements BackgroundProducer {
 
     /**
@@ -40,7 +39,12 @@ public class CaptchaBackground extends Configurable implements BackgroundProduce
      */
     @Override
     public BufferedImage addBackground(BufferedImage baseImage) {
-        List<BufferedImage> backgroundImages = getBackgroundImages();
+        List<BufferedImage> backgroundImages = null;
+        try {
+            backgroundImages = getBackgroundImages();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         if (CollectionUtils.isEmpty(backgroundImages)) {
             return baseImage;
         }
@@ -68,31 +72,27 @@ public class CaptchaBackground extends Configurable implements BackgroundProduce
      *
      * @return 背景图片
      */
-    public synchronized List<BufferedImage> getBackgroundImages() {
+    public synchronized List<BufferedImage> getBackgroundImages() throws FileNotFoundException {
         if (CollectionUtils.isNotEmpty(BACKGROUND_IMAGES_CACHE)) {
             return BACKGROUND_IMAGES_CACHE;
         }
 
-        ClassLoader classLoader = this.getClass().getClassLoader();
-        URL url = classLoader.getResource("captcha");
-        String backgroundImagePath = url.getPath();
-        if (StringUtils.isNotEmpty(backgroundImagePath)) {
-            File backgroundImageDir = new File(backgroundImagePath);
-            for (File file : FileUtils.listFiles(backgroundImageDir, null, true)) {
-                InputStream inputStream = null;
-                try {
-                    inputStream = new BufferedInputStream(new FileInputStream(file));
-                    BufferedImage backgroundImage = ImageIO.read(inputStream);
-                    if (backgroundImage != null) {
-                        BACKGROUND_IMAGES_CACHE.add(backgroundImage);
-                    }
-                } catch (IOException e) {
-                    throw new RuntimeException(e.getMessage(), e);
-                } finally {
-                    IOUtils.closeQuietly(inputStream);
+        ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+        try {
+            Resource[] resources = resolver.getResources("/captcha/*.jpg");
+            for (Resource resource : resources) {
+                InputStream inputStream = resource.getInputStream();
+                BufferedImage backgroundImage = ImageIO.read(inputStream);
+                if (backgroundImage != null) {
+                    BACKGROUND_IMAGES_CACHE.add(backgroundImage);
                 }
             }
+        } catch (IOException e) {
+            if (log.isWarnEnabled()) {
+                log.warn("读取文件流失败", e);
+            }
         }
+
         return BACKGROUND_IMAGES_CACHE;
     }
 
