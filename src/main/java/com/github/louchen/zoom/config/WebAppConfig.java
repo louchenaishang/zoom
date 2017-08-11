@@ -1,7 +1,6 @@
 package com.github.louchen.zoom.config;
 
-import com.github.louchen.zoom.api.channel.interceptor.CaptchaInterceptor;
-import com.github.louchen.zoom.api.exception.ApiExcerptionHandler;
+import com.github.louchen.zoom.api.captcha.interceptor.CaptchaInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
@@ -31,17 +30,14 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
     @Autowired
     public Environment env;
 
+    private static final String prefixUrl = "/api";
+
     @Bean
     public MultipartConfigElement multipartConfigElement() {
         MultipartConfigFactory factory = new MultipartConfigFactory();
         factory.setMaxFileSize("5MB");//单个文件最大
         factory.setMaxRequestSize("5MB");//一次request上传数据总大小
         return factory.createMultipartConfig();
-    }
-
-    @Bean
-    public ApiExcerptionHandler apiExcerptionHandler() {
-        return new ApiExcerptionHandler();
     }
 
     @Bean
@@ -78,9 +74,11 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        String register = prefixUrl + env.getProperty("jwt.route.authentication.register");
+        String login = prefixUrl + env.getProperty("jwt.route.authentication.path");
         registry.addInterceptor(captchaInterceptor())
-                .addPathPatterns(env.getProperty("jwt.route.authentication.register"))
-                .addPathPatterns(env.getProperty("jwt.route.authentication.path"));
+                .addPathPatterns(register)
+                .addPathPatterns(login);
 
         super.addInterceptors(registry);
     }

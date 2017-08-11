@@ -88,7 +88,7 @@ axios.interceptors.response.use(function (response) {
 let base = addr
 
 const requestLogin = params => {
-  return axios.post(`${base}/auth`, params)
+  return axios.post(`${base}/auth?captchaId=${params.captchaId}&captcha=${params.captcha}`, params)
 }
 
 const getPrincipal = params => {

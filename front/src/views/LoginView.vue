@@ -8,6 +8,14 @@
     <el-form-item prop="checkPass">
       <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off" placeholder="密码"></el-input>
     </el-form-item>
+    <el-form-item prop="captcha">
+      <el-col :span="18">
+        <el-input type="text" v-model="ruleForm2.captcha" auto-complete="off" placeholder="图形验证码" :maxlength="4"></el-input>
+      </el-col>
+      <el-col :span="6">
+        <captcha :captchaId="ruleForm2.captchaId" scene="login" @click.native.prevent="refreshCaptchaId" class="captcha"></captcha>
+      </el-col>
+    </el-form-item>
     <el-checkbox v-model="checked" checked style="margin:0px 0px 35px 0px;">记住密码</el-checkbox>
     <el-form-item style="width:100%;">
       <el-button type="primary" style="width:100%;" @click.native.prevent="handleSubmit2" :loading="logining">登录
@@ -19,14 +27,21 @@
 
 <script>
   import Api from '../api/api'
+  import Captcha from '../components/Captcha'
+  import uuid from 'uuid'
 
   export default {
+    components: {
+      Captcha
+    },
     data() {
       return {
         logining: false,
         ruleForm2: {
           account: '18017233379',
-          checkPass: '123456'
+          checkPass: '123456',
+          captchaId: '',
+          captcha: '',
         },
         rules2: {
           account: [
@@ -42,6 +57,10 @@
       };
     },
     methods: {
+      refreshCaptchaId(){
+        this.ruleForm2.captchaId = '';
+        this.ruleForm2.captchaId = uuid.v1().replace(new RegExp('-', "gm"), '');
+      },
       handleReset2() {
         this.$refs.ruleForm2.resetFields();
       },
@@ -50,7 +69,12 @@
         this.$refs.ruleForm2.validate((valid) => {
           if (valid) {
             _this.logining = true;
-            var loginParams = {username: this.ruleForm2.account, password: this.ruleForm2.checkPass};
+            var loginParams = {
+              username: this.ruleForm2.account,
+              password: this.ruleForm2.checkPass,
+              captchaId: this.ruleForm2.captchaId,
+              captcha: this.ruleForm2.captcha
+            };
             Api.requestLogin(loginParams).then(res => {
               _this.logining = false;
               _this.$notify.success({
@@ -73,6 +97,9 @@
           }
         });
       }
+    },
+    mounted(){
+      this.refreshCaptchaId();
     }
   }
 </script>
@@ -101,5 +128,9 @@
   .loginform {
     width: 350px;
     padding: 35px 35px 15px 35px;
+  }
+
+  .captcha{
+    float: right;
   }
 </style>

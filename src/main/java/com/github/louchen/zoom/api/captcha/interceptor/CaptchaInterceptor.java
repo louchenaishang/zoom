@@ -1,12 +1,12 @@
-package com.github.louchen.zoom.api.channel.interceptor;
+package com.github.louchen.zoom.api.captcha.interceptor;
 
 
 import com.github.louchen.zoom.api.captcha.service.CaptchaService;
+import com.github.louchen.zoom.utils.AssertUtils;
+import com.github.louchen.zoom.utils.SpringUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -58,10 +58,10 @@ public class CaptchaInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String captchaId = request.getParameter(CAPTCHA_ID_PARAMETER_NAME);
         String captcha = request.getParameter(CAPTCHA_PARAMETER_NAME);
-        if (!containsIgnoreCase(getNotRequireProtectionRequestMethods(), request.getMethod()) && !captchaService.isValid(captchaId, captcha)) {
-            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(CAPTCHA_INVALID_MESSAGE);
-            return false;
-        }
+        AssertUtils.isTrue(
+                !(!containsIgnoreCase(getNotRequireProtectionRequestMethods(), request.getMethod()) && !captchaService.isValid(captchaId, captcha))
+                , SpringUtils.getMessage("common.message.incorrectCaptcha"));
+
         return super.preHandle(request, response, handler);
     }
 
