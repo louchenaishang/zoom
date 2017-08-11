@@ -87,7 +87,8 @@
               _this.$router.push({path: '/welcome'});
             }).catch(function (error) {
               _this.logining = false;
-            })
+              _this.refreshCaptchaId();
+            });
           } else {
             _this.$notify.error({
               title: '错误',

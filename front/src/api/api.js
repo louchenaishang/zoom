@@ -62,7 +62,7 @@ axios.interceptors.response.use(function (response) {
     } else if (status === 500) {
       Notification.error({
         title: '错误',
-        message: '500,' + '[' + path + ']' + exception + ',' + message
+        message: '500,' + '[' + path + ']' + ',' + message
       })
     } else if (status === 504) {
       Notification.error({
@@ -72,7 +72,7 @@ axios.interceptors.response.use(function (response) {
     } else {
       Notification.error({
         title: '错误',
-        message: status + ',' + '[' + path + ']' + exception + ',' + message
+        message: status + ',' + '[' + path + ']' + ',' + message
       })
     }
   } else {
