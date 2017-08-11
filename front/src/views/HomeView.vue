@@ -8,7 +8,7 @@
       <el-col :span="4" class="rightbar">
         <el-dropdown trigger="click">
 					<span class="el-dropdown-link" style="color:#c0ccda;cursor: pointer;">
-            <img :src="this.sysUserAvatar" class="head"> {{sysUserName}}
+            <img src="../assets/avatar.png" class="head"> <span v-if="principal&&principal.principal">{{ principal.principal.username }}</span>
           </span>
           <el-dropdown-menu slot="dropdown">
             <!--<el-dropdown-item>我的消息</el-dropdown-item>-->
@@ -67,31 +67,29 @@
 
   export default {
     name: 'home-view',
-    props: {},
-    computed: {},
+    computed: {
+      ...mapGetters([
+        'principal',
+        'username',
+        'roles',
+        'isAdmin'
+      ])
+    },
     data() {
       return {
         version: '',
         sysUserName: '',
-        sysUserAvatar: '',
-        form: {
-          name: '',
-          region: '',
-          date1: '',
-          date2: '',
-          delivery: false,
-          type: [],
-          resource: '',
-          desc: ''
-        }
       }
     },
     methods: {
       ...mapActions([
+        'addToPincipal',
         'clearToPrincipal'
       ]),
-      onSubmit() {
-        //console.log('submit!')
+      getPrincipal() {
+        Api.getPrincipal({}).then(res => {
+          this.addToPincipal(res.data)
+        })
       },
       handleopen() {
         //console.log('handleopen')
@@ -110,7 +108,7 @@
         }).then(() => {
           sessionStorage.removeItem('token');
           sessionStorage.removeItem('user');
-          this.clearToPrincipal()
+          this.clearToPrincipal();
           _this.$router.push('/login');
         }).catch(() => {
           console.log('catch logout')
@@ -123,12 +121,7 @@
       }
     },
     mounted() {
-      var user = sessionStorage.getItem('user')
-      if (user) {
-        user = JSON.parse(user)
-        this.sysUserName = user.name || ''
-        this.sysUserAvatar = user.avatar || ''
-      }
+      this.getPrincipal()
       this.getVersion()
     }
   }

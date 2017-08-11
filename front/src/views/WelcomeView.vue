@@ -41,17 +41,9 @@
       ])
     },
     methods: {
-      ...mapActions([
-        'addToPincipal'
-      ]),
-      getPrincipal() {
-        Api.getPrincipal({}).then(res => {
-          this.addToPincipal(res.data)
-        })
-      }
+
     },
     mounted() {
-      this.getPrincipal()
       this.token = JSON.parse(sessionStorage.getItem('token'))
     }
   }

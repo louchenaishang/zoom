@@ -7,7 +7,7 @@
           <el-input v-model="filters.name" placeholder="姓名"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" v-on:click="getUsers">查询</el-button>
+          <el-button type="primary" @click="getUsers">查询</el-button>
         </el-form-item>
         <el-form-item v-if="isAdmin">
         <el-button type="primary" @click="handleAdd">新增</el-button>
@@ -18,17 +18,19 @@
     <!--列表-->
     <template>
       <el-table :data="users" highlight-current-row v-loading="listLoading" style="width: 100%;">
-        <el-table-column type="index" width="60">
+        <el-table-column type="index">
         </el-table-column>
-        <el-table-column prop="username" label="姓名" width="200" sortable>
+        <el-table-column prop="username" label="姓名" sortable>
         </el-table-column>
-        <el-table-column prop="sex" label="性别" width="100" :formatter="formatSex" sortable>
+        <el-table-column prop="sex" label="性别" :formatter="formatSex" sortable>
         </el-table-column>
-        <el-table-column prop="createTime" label="创建时间" width="200" :formatter="formatDate" sortable>
+        <el-table-column prop="createTime" label="创建时间" :formatter="formatDate" sortable>
         </el-table-column>
-        <el-table-column prop="road" label="地址" min-width="180" sortable>
+        <el-table-column prop="mobile" label="手机" sortable>
         </el-table-column>
-        <el-table-column inline-template :context="_self" label="操作" width="150">
+        <el-table-column prop="email" label="邮箱" sortable>
+        </el-table-column>
+        <el-table-column inline-template :context="_self" label="操作">
 	<span>
 					<el-button size="small" @click="handleEdit(row)" v-if="isAdmin">编辑</el-button>
 					<el-button type="danger" size="small" @click="handleDel(row)" v-if="isAdmin">删除</el-button>
@@ -120,14 +122,6 @@
       ])
     },
     methods: {
-      ...mapActions([
-        'addToPincipal'
-      ]),
-      getPrincipal() {
-        Api.getPrincipal({}).then(res => {
-          this.addToPincipal(res.data)
-        })
-      },
       //性别显示转换
       formatSex: function (row, column) {
         return row.sex == 'MALE' ? '男' : row.sex == 'FEMALE' ? '女' : row.sex
@@ -276,7 +270,6 @@
       },
     },
     mounted() {
-      this.getPrincipal()
       this.getUsers()
     }
   }
