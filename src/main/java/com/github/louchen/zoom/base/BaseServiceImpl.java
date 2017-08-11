@@ -1,5 +1,6 @@
 package com.github.louchen.zoom.base;
 
+import com.github.louchen.zoom.utils.AssertUtils;
 import com.github.louchen.zoom.utils.SpringUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.ArrayUtils;
@@ -8,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 
 import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
@@ -76,8 +76,8 @@ public abstract class BaseServiceImpl<T extends BaseEntity<ID>, ID extends Seria
     @Override
     @Transactional
     public T save(T entity) {
-        Assert.notNull(entity, message("common.error.paramMustNotBeNull"));
-        Assert.isTrue(entity.isNew(), message("common.error.entityIsNew"));
+        AssertUtils.notNull(entity);
+        AssertUtils.isTrue(entity.isNew());
 
         jpaRepository.save(entity);
         return entity;
@@ -86,8 +86,8 @@ public abstract class BaseServiceImpl<T extends BaseEntity<ID>, ID extends Seria
     @Override
     @Transactional
     public T update(T entity) {
-        Assert.notNull(entity, message("common.error.paramMustNotBeNull"));
-        Assert.isTrue(!entity.isNew(),message("common.error.entityIsNotNew"));
+        AssertUtils.notNull(entity);
+        AssertUtils.isTrue(!entity.isNew());
 
         if (!isManaged(entity)) {
             T persistant = find(getIdentifier(entity));
@@ -102,9 +102,9 @@ public abstract class BaseServiceImpl<T extends BaseEntity<ID>, ID extends Seria
     @Override
     @Transactional
     public T update(T entity, String... ignoreProperties) {
-        Assert.notNull(entity);
-        Assert.isTrue(!entity.isNew());
-        Assert.isTrue(!isManaged(entity));
+        AssertUtils.notNull(entity);
+        AssertUtils.isTrue(!entity.isNew());
+        AssertUtils.isTrue(!isManaged(entity));
 
         T persistant = find(getIdentifier(entity));
         if (persistant != null) {
@@ -157,29 +157,29 @@ public abstract class BaseServiceImpl<T extends BaseEntity<ID>, ID extends Seria
 
     @Override
     public ID getIdentifier(T entity) {
-        Assert.notNull(entity, message("common.error.paramMustNotBeNull"));
+        AssertUtils.notNull(entity);
 
         return (ID) entityManager.getEntityManagerFactory().getPersistenceUnitUtil().getIdentifier(entity);
     }
 
     @Override
     public boolean isLoaded(T entity) {
-        Assert.notNull(entity, message("common.error.paramMustNotBeNull"));
+        AssertUtils.notNull(entity);
 
         return entityManager.getEntityManagerFactory().getPersistenceUnitUtil().isLoaded(entity);
     }
 
     @Override
     public boolean isLoaded(T entity, String attributeName) {
-        Assert.notNull(entity, message("common.error.paramMustNotBeNull"));
-        Assert.hasText(attributeName, message("common.error.paramMustNotBeNull"));
+        AssertUtils.notNull(entity);
+        AssertUtils.hasText(attributeName);
 
         return entityManager.getEntityManagerFactory().getPersistenceUnitUtil().isLoaded(entity, attributeName);
     }
 
     @Override
     public boolean isManaged(T entity) {
-        Assert.notNull(entity, message("common.error.paramMustNotBeNull"));
+        AssertUtils.notNull(entity);
 
         return entityManager.contains(entity);
     }
@@ -193,7 +193,7 @@ public abstract class BaseServiceImpl<T extends BaseEntity<ID>, ID extends Seria
 
     @Override
     public LockModeType getLockMode(T entity) {
-        Assert.notNull(entity, message("common.error.paramMustNotBeNull"));
+        AssertUtils.notNull(entity);
 
         return entityManager.getLockMode(entity);
     }
@@ -228,8 +228,8 @@ public abstract class BaseServiceImpl<T extends BaseEntity<ID>, ID extends Seria
      * @param ignoreProperties 忽略属性
      */
     protected void copyProperties(T source, T target, String... ignoreProperties) {
-        Assert.notNull(source, message("common.error.paramMustNotBeNull"));
-        Assert.notNull(target, message("common.error.paramMustNotBeNull"));
+        AssertUtils.notNull(source);
+        AssertUtils.notNull(target);
 
         PropertyDescriptor[] propertyDescriptors = PropertyUtils.getPropertyDescriptors(target);
         for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {

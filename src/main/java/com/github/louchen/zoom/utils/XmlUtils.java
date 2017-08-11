@@ -13,7 +13,6 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.fasterxml.jackson.dataformat.xml.JacksonXmlModule;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.dataformat.xml.ser.ToXmlGenerator;
-import org.springframework.util.Assert;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -50,7 +49,7 @@ public final class XmlUtils {
      * @return XML字符串
      */
     public static String toXml(Object value) {
-        Assert.notNull(value, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
+        AssertUtils.notNull(value);
 
         try {
             JacksonXmlModule module = new JacksonXmlModule();
@@ -70,8 +69,8 @@ public final class XmlUtils {
      * @return 对象
      */
     public static <T> T toObject(String xml, Class<T> valueType) {
-        Assert.hasText(xml, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
-        Assert.notNull(valueType, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
+        AssertUtils.hasText(xml);
+        AssertUtils.notNull(valueType);
 
         try {
             return XML_MAPPER.readValue(xml, valueType);
@@ -92,8 +91,8 @@ public final class XmlUtils {
      * @return 对象
      */
     public static <T> T toObject(String xml, TypeReference<?> typeReference) {
-        Assert.hasText(xml, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
-        Assert.notNull(typeReference, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
+        AssertUtils.hasText(xml);
+        AssertUtils.notNull(typeReference);
 
         try {
             return XML_MAPPER.readValue(xml, typeReference);
@@ -114,8 +113,8 @@ public final class XmlUtils {
      * @return 对象
      */
     public static <T> T toObject(String xml, JavaType javaType) {
-        Assert.hasText(xml, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
-        Assert.notNull(javaType, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
+        AssertUtils.hasText(xml);
+        AssertUtils.notNull(javaType);
 
         try {
             return XML_MAPPER.readValue(xml, javaType);
@@ -135,7 +134,7 @@ public final class XmlUtils {
      * @return 树
      */
     public static JsonNode toTree(String xml) {
-        Assert.hasText(xml, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
+        AssertUtils.hasText(xml);
 
         try {
             return XML_MAPPER.readTree(xml);
@@ -153,8 +152,8 @@ public final class XmlUtils {
      * @param value  对象
      */
     public static void writeValue(Writer writer, Object value) {
-        Assert.notNull(writer, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
-        Assert.notNull(value, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
+        AssertUtils.notNull(writer);
+        AssertUtils.notNull(value);
 
         try {
             XML_MAPPER.writeValue(writer, value);
@@ -174,7 +173,7 @@ public final class XmlUtils {
      * @return 类型
      */
     public static JavaType constructType(Type type) {
-        Assert.notNull(type, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
+        AssertUtils.notNull(type);
 
         return TypeFactory.defaultInstance().constructType(type);
     }
@@ -186,7 +185,7 @@ public final class XmlUtils {
      * @return 类型
      */
     public static JavaType constructType(TypeReference<?> typeReference) {
-        Assert.notNull(typeReference, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
+        AssertUtils.notNull(typeReference);
 
         return TypeFactory.defaultInstance().constructType(typeReference);
     }

@@ -2,7 +2,6 @@ package com.github.louchen.zoom.utils;
 
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.Assert;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -60,7 +59,8 @@ public class ReflectionUtils {
      * 循环向上转型,获取对象的DeclaredField.
      */
     protected static Field getDeclaredField(final Object object, final String fieldName) {
-        Assert.notNull(object, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
+        AssertUtils.notNull(object);
+
         return getDeclaredField(object.getClass(), fieldName);
     }
 
@@ -69,8 +69,8 @@ public class ReflectionUtils {
      */
     @SuppressWarnings("unchecked")
     protected static Field getDeclaredField(final Class clazz, final String fieldName) {
-        Assert.notNull(clazz, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
-        Assert.hasText(fieldName, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
+        AssertUtils.notNull(clazz);
+        AssertUtils.hasText(fieldName);
         for (Class superClass = clazz; superClass != Object.class; superClass = superClass.getSuperclass()) {
             try {
                 return superClass.getDeclaredField(fieldName);

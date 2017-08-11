@@ -3,7 +3,6 @@ package com.github.louchen.zoom.utils;
 
 import org.apache.commons.codec.binary.Base64;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.springframework.util.Assert;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -67,7 +66,7 @@ public final class RSAUtils {
      * @return 密钥对
      */
     public static KeyPair generateKeyPair(int keySize) {
-        Assert.state(keySize > 0, "keySize需要大于0");
+        AssertUtils.state(keySize > 0);
 
         try {
             KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance(KEY_ALGORITHM, PROVIDER);
@@ -85,7 +84,7 @@ public final class RSAUtils {
      * @return 私钥
      */
     public static PrivateKey generatePrivateKey(byte[] encodedKey) {
-        Assert.notNull(encodedKey, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
+        AssertUtils.notNull(encodedKey);
 
         try {
             KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM, PROVIDER);
@@ -104,7 +103,7 @@ public final class RSAUtils {
      * @return 私钥
      */
     public static PrivateKey generatePrivateKey(String keyString) {
-        Assert.hasText(keyString, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
+        AssertUtils.hasText(keyString);
 
         return generatePrivateKey(Base64.decodeBase64(keyString));
     }
@@ -116,7 +115,7 @@ public final class RSAUtils {
      * @return 公钥
      */
     public static PublicKey generatePublicKey(byte[] encodedKey) {
-        Assert.notNull(encodedKey, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
+        AssertUtils.notNull(encodedKey);
 
         try {
             KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM, PROVIDER);
@@ -135,7 +134,7 @@ public final class RSAUtils {
      * @return 公钥
      */
     public static PublicKey generatePublicKey(String keyString) {
-        Assert.hasText(keyString, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
+        AssertUtils.hasText(keyString);
 
         return generatePublicKey(Base64.decodeBase64(keyString));
     }
@@ -147,7 +146,7 @@ public final class RSAUtils {
      * @return 密钥字符串(BASE64编码)
      */
     public static String getKeyString(Key key) {
-        Assert.notNull(key, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
+        AssertUtils.notNull(key);
 
         return Base64.encodeBase64String(key.getEncoded());
     }
@@ -161,8 +160,8 @@ public final class RSAUtils {
      * @return 密钥
      */
     public static Key getKey(String type, InputStream inputStream, String password) {
-        Assert.hasText(type, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
-        Assert.notNull(inputStream, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
+        AssertUtils.hasText(type);
+        AssertUtils.notNull(inputStream);
 
         try {
             KeyStore keyStore = KeyStore.getInstance(type, PROVIDER);
@@ -190,8 +189,8 @@ public final class RSAUtils {
      * @return 证书
      */
     public static Certificate getCertificate(String type, InputStream inputStream) {
-        Assert.hasText(type, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
-        Assert.notNull(inputStream, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
+        AssertUtils.hasText(type);
+        AssertUtils.notNull(inputStream);
 
         try {
             CertificateFactory certificateFactory = CertificateFactory.getInstance(type, PROVIDER);
@@ -210,9 +209,9 @@ public final class RSAUtils {
      * @return 签名
      */
     public static byte[] sign(String algorithm, PrivateKey privateKey, byte[] data) {
-        Assert.hasText(algorithm, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
-        Assert.notNull(privateKey, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
-        Assert.notNull(data, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
+        AssertUtils.hasText(algorithm);
+        AssertUtils.notNull(privateKey);
+        AssertUtils.notNull(data);
 
         try {
             Signature signature = Signature.getInstance(algorithm, PROVIDER);
@@ -238,10 +237,10 @@ public final class RSAUtils {
      * @return 是否验证通过
      */
     public static boolean verify(String algorithm, PublicKey publicKey, byte[] sign, byte[] data) {
-        Assert.hasText(algorithm, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
-        Assert.notNull(publicKey, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
-        Assert.notNull(sign, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
-        Assert.notNull(data, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
+        AssertUtils.hasText(algorithm);
+        AssertUtils.notNull(publicKey);
+        AssertUtils.notNull(sign);
+        AssertUtils.notNull(data);
 
         try {
             Signature signature = Signature.getInstance(algorithm, PROVIDER);
@@ -267,10 +266,10 @@ public final class RSAUtils {
      * @return 是否验证通过
      */
     public static boolean verify(String algorithm, Certificate certificate, byte[] sign, byte[] data) {
-        Assert.hasText(algorithm, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
-        Assert.notNull(certificate, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
-        Assert.notNull(sign, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
-        Assert.notNull(data, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
+        AssertUtils.hasText(algorithm);
+        AssertUtils.notNull(certificate);
+        AssertUtils.notNull(sign);
+        AssertUtils.notNull(data);
 
         try {
             Signature signature = Signature.getInstance(algorithm, PROVIDER);
@@ -294,8 +293,8 @@ public final class RSAUtils {
      * @return 密文
      */
     public static byte[] encrypt(PublicKey publicKey, byte[] data) {
-        Assert.notNull(publicKey, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
-        Assert.notNull(data, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
+        AssertUtils.notNull(publicKey);
+        AssertUtils.notNull(data);
 
         try {
             Cipher cipher = Cipher.getInstance(TRANSFORMATION, PROVIDER);
@@ -322,8 +321,8 @@ public final class RSAUtils {
      * @return 明文
      */
     public static byte[] decrypt(PrivateKey privateKey, byte[] data) {
-        Assert.notNull(privateKey, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
-        Assert.notNull(data, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
+        AssertUtils.notNull(privateKey);
+        AssertUtils.notNull(data);
 
         try {
             Cipher cipher = Cipher.getInstance(TRANSFORMATION, PROVIDER);

@@ -9,7 +9,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
-import org.springframework.util.Assert;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -40,7 +39,7 @@ public final class JsonUtils {
      * @return JSON字符串
      */
     public static String toJson(Object value) {
-        Assert.notNull(value, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
+        AssertUtils.notNull(value);
 
         try {
             return OBJECT_MAPPER.writeValueAsString(value);
@@ -57,8 +56,8 @@ public final class JsonUtils {
      * @return 对象
      */
     public static <T> T toObject(String json, Class<T> valueType) {
-        Assert.hasText(json, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
-        Assert.notNull(valueType, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
+        AssertUtils.hasText(json);
+        AssertUtils.notNull(valueType);
 
         try {
             return OBJECT_MAPPER.readValue(json, valueType);
@@ -79,8 +78,8 @@ public final class JsonUtils {
      * @return 对象
      */
     public static <T> T toObject(String json, TypeReference<?> typeReference) {
-        Assert.hasText(json, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
-        Assert.notNull(typeReference, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
+        AssertUtils.hasText(json);
+        AssertUtils.notNull(typeReference);
 
         try {
             return OBJECT_MAPPER.readValue(json, typeReference);
@@ -101,8 +100,8 @@ public final class JsonUtils {
      * @return 对象
      */
     public static <T> T toObject(String json, JavaType javaType) {
-        Assert.hasText(json, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
-        Assert.notNull(javaType, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
+        AssertUtils.hasText(json);
+        AssertUtils.notNull(javaType);
 
         try {
             return OBJECT_MAPPER.readValue(json, javaType);
@@ -122,7 +121,7 @@ public final class JsonUtils {
      * @return 树
      */
     public static JsonNode toTree(String json) {
-        Assert.hasText(json, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
+        AssertUtils.hasText(json);
 
         try {
             return OBJECT_MAPPER.readTree(json);
@@ -140,8 +139,8 @@ public final class JsonUtils {
      * @param value  对象
      */
     public static void writeValue(Writer writer, Object value) {
-        Assert.notNull(writer, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
-        Assert.notNull(value, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
+        AssertUtils.notNull(writer);
+        AssertUtils.notNull(value);
 
         try {
             OBJECT_MAPPER.writeValue(writer, value);
@@ -161,7 +160,7 @@ public final class JsonUtils {
      * @return 类型
      */
     public static JavaType constructType(Type type) {
-        Assert.notNull(type, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
+        AssertUtils.notNull(type);
 
         return TypeFactory.defaultInstance().constructType(type);
     }
@@ -173,7 +172,7 @@ public final class JsonUtils {
      * @return 类型
      */
     public static JavaType constructType(TypeReference<?> typeReference) {
-        Assert.notNull(typeReference, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
+        AssertUtils.notNull(typeReference);
 
         return TypeFactory.defaultInstance().constructType(typeReference);
     }

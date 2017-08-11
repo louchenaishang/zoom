@@ -2,7 +2,6 @@ package com.github.louchen.zoom.utils;
 
 
 import org.apache.commons.lang.StringUtils;
-import org.springframework.util.Assert;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -51,7 +50,7 @@ public final class WebUtils {
      * @return 是否为AJAX请求
      */
     public static boolean isAjaxRequest(HttpServletRequest request) {
-        Assert.notNull(request, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
+        AssertUtils.notNull(request);
 
         return StringUtils.equalsIgnoreCase(request.getHeader("X-Requested-With"), "XMLHttpRequest");
     }
@@ -66,9 +65,9 @@ public final class WebUtils {
      * @param http10Compatible 是否兼容HTTP1.0
      */
     public static void sendRedirect(HttpServletRequest request, HttpServletResponse response, String url, boolean contextRelative, boolean http10Compatible) {
-        Assert.notNull(request, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
-        Assert.notNull(response, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
-        Assert.hasText(url, SpringUtils.getMessage("common.error.paramMustNotBeNull"));
+        AssertUtils.notNull(request);
+        AssertUtils.notNull(response);
+        AssertUtils.hasText(url);
 
         StringBuilder targetUrl = new StringBuilder();
         if (contextRelative && url.startsWith("/")) {
