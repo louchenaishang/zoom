@@ -1,5 +1,6 @@
 package com.github.louchen.zoom.secruity;
 
+import com.github.louchen.zoom.utils.UUIDUtils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -15,8 +16,9 @@ import java.util.Map;
 @Component
 public class JwtTokenUtil implements Serializable {
 
-    private static final long serialVersionUID = -3301605591108950415L;
+    private static final long serialVersionUID = -5778204267084379514L;
 
+    private static final String CLAIM_KEY_ID = "id";
     private static final String CLAIM_KEY_USERNAME = "sub";
     private static final String CLAIM_KEY_CREATED = "created";
 
@@ -25,6 +27,17 @@ public class JwtTokenUtil implements Serializable {
 
     @Value("${jwt.expiration}")
     private Long expiration;
+
+    public String getIdFromToken(String token) {
+        String id;
+        try {
+            final Claims claims = getClaimsFromToken(token);
+            id = (String) claims.get(CLAIM_KEY_ID);
+        } catch (Exception e) {
+            id = null;
+        }
+        return id;
+    }
 
     public String getUsernameFromToken(String token) {
         String username;
@@ -87,12 +100,13 @@ public class JwtTokenUtil implements Serializable {
 
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
+        claims.put(CLAIM_KEY_ID, UUIDUtils.get32UUID());
         claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
         claims.put(CLAIM_KEY_CREATED, new Date());
         return generateToken(claims);
     }
 
-    String generateToken(Map<String, Object> claims) {
+    private String generateToken(Map<String, Object> claims) {
         return Jwts.builder()
                 .setClaims(claims)
                 .setExpiration(generateExpirationDate())
