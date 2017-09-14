@@ -9,6 +9,9 @@ import App from '@/App.vue'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 
+//fa图标
+import 'font-awesome/css/font-awesome.min.css'
+
 //页面顶部进度条
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'

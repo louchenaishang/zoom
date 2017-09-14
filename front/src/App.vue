@@ -26,8 +26,6 @@
 
 
 <style lang="scss">
-  @import "../node_modules/font-awesome/css/font-awesome.min.css";
-
   body {
     margin: 0px;
     padding: 0px;

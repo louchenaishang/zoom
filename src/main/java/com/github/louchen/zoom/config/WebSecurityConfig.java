@@ -72,7 +72,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/favicon.ico",
                         "/**/*.html",
                         "/**/*.css",
-                        "/**/*.js"
+                        "/**/*.js",
+                        "/static/**"
                 ).permitAll()
                 // 获取验证码允许匿名访问
                 .antMatchers(HttpMethod.GET,"/api/captcha/image").permitAll()
