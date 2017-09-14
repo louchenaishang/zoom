@@ -5,8 +5,8 @@
         {{collapsed ? '' : version}}
       </el-col>
       <el-col :span="10">
-        <div class="tools" @click.prevent="collapse">
-          <i class="fa fa-align-justify"></i>
+        <div class="tools">
+          <el-button type="primary" @click.prevent="collapse"><i class="fa fa-align-justify"></i></el-button>
         </div>
       </el-col>
       <el-col :span="4" class="userinfo">

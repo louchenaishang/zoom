@@ -33,7 +33,7 @@ let routes = [
     iconCls: 'fa fa-home',
     leaf: true,//只有一个节点
     children: [
-      {path: '/welcome', component: WelcomeView, name: '首页'}
+      {path: '/welcome', component: WelcomeView, name: 'welcome'}
     ]
   },
   {
