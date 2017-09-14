@@ -7,7 +7,7 @@ import LoginView from '../../views/LoginView.vue'
 import UsersListView from '../../views/nav1/UsersListView.vue'
 import DeptsListView from '../../views/nav1/DeptsListView.vue'
 //import EchartsView from '../../views/charts/EchartsView.vue'  //这玩意巨大 5m
-//import Page1 from '../../views/nav1/Page1.vue'
+import Page1 from '../../views/nav1/Page1.vue'
 //import Page2 from '../../views/nav1/Page2.vue'
 //import Page3 from '../../views/nav1/Page3.vue'
 //import Page4 from '../../views/nav2/Page4.vue'
@@ -43,7 +43,8 @@ let routes = [
     iconCls: 'fa fa-address-card-o',
     children: [
       {path: '/usersList', component: UsersListView, name: '员工列表', iconCls: 'fa fa-user'},
-      {path: '/deptsList', component: DeptsListView, name: '部门列表', iconCls: 'fa fa-street-view'}
+      {path: '/deptsList', component: DeptsListView, name: '部门列表', iconCls: 'fa fa-street-view'},
+      {path: '/Page1', component: Page1, name: 'Page1', iconCls: 'fa fa-street-view'}
     ]
   },
   {

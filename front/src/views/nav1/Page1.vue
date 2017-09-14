@@ -1,8 +1,7 @@
 <template>
-	<div>
-		<h1>page1 </h1>
-
-	</div>
+  <section>
+    page1...
+  </section>
 </template>
 
 <script>
