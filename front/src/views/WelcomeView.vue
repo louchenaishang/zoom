@@ -21,7 +21,7 @@
 
 <script>
   import {mapGetters, mapActions} from 'vuex'
-  import Api from '../api/api'
+  import Api from '@/api/api'
 
 
   export default {

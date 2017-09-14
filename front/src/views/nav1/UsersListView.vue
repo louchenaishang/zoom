@@ -78,8 +78,8 @@
 
 <script>
   import {mapGetters, mapActions} from 'vuex'
-  import util from '../../common/util'
-  import Api from '../../api/api'
+  import util from '@/common/util'
+  import Api from '@/api/api'
 
   export default {
     data() {

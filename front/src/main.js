@@ -1,9 +1,9 @@
 //vue全家桶
 import Vue from 'vue'
 import {sync} from 'vuex-router-sync'
-import store from './vues/vuex/store'
-import router from './vues/route/route'
-import App from './App.vue'
+import store from '@/vues/vuex/store'
+import router from '@/vues/route/route'
+import App from '@/App.vue'
 
 //element ui
 import ElementUI from 'element-ui'

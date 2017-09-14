@@ -32,8 +32,8 @@
 </template>
 
 <script>
-  import Api from '../api/api'
-  import Captcha from '../components/Captcha'
+  import Api from '@/api/api'
+  import Captcha from '@/components/Captcha'
   import uuid from 'uuid'
 
   export default {

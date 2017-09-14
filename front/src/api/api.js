@@ -1,7 +1,7 @@
 import axios from 'axios'
-import router from '../vues/route/route'
-import addr from './addr'
-import auth from '../common/auth'
+import router from '@/vues/route/route'
+import addr from '@/api/addr'
+import auth from '@/common/auth'
 import NProgress from 'nprogress'
 import {Notification} from 'element-ui';
 
