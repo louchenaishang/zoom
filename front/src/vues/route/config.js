@@ -3,10 +3,11 @@ import HomeView from '@/views/HomeView.vue'
 import WelcomeView from '@/views/WelcomeView.vue'
 import LoginView from '@/views/LoginView.vue'
 import UsersListView from '@/views/nav1/UsersListView.vue'
-import DeptsListView from '@/views/nav1/DeptsListView.vue'
-//import EchartsView from '@/views/charts/EchartsView.vue'  //这玩意巨大 5m
-import Page1 from '@/views/nav1/Page1.vue'
+import SystemSettingView from '@/views/nav1/SystemSettingView.vue'
 
+
+//import EchartsView from '@/views/charts/EchartsView.vue'  //这玩意巨大 5m
+import Form from '@/views/example/Form.vue'
 
 let routes = [
   {
@@ -34,12 +35,12 @@ let routes = [
   {
     path: '/',
     component: HomeView,
-    name: '公司人员组织库',
-    iconCls: 'fa fa-address-card-o',
+    name: '系统配置',
+    iconCls: 'fa fa-gears',
     children: [
-      {path: '/usersList', component: UsersListView, name: '员工列表', iconCls: 'fa fa-user'},
-      {path: '/deptsList', component: DeptsListView, name: '部门列表', iconCls: 'fa fa-street-view'},
-      {path: '/Page1', component: Page1, name: 'Page1', iconCls: 'fa fa-street-view'}
+      {path: '/system/setting', component: SystemSettingView, name: '系统设置', iconCls: 'fa fa-gear'},
+      {path: '/usersList', component: UsersListView, name: '操作人员', iconCls: 'fa fa-user'},
+      //{path: '/form', component: Form, name: '表单', iconCls: 'fa fa-user'},
     ]
   },
   {

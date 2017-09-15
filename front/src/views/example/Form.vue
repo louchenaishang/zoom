@@ -36,7 +36,7 @@
         <el-radio label="线下场地免费"></el-radio>
       </el-radio-group>
     </el-form-item>
-    <el-form-item label="活动形式">
+    <el-form-item label="活动形式111111111111">
       <el-input type="textarea" v-model="form.desc"></el-input>
     </el-form-item>
     <el-form-item>
@@ -64,7 +64,8 @@
     },
     methods: {
       onSubmit() {
-        console.log('submit!');
+        alert('submit!')
+        console.log('submit!')
       }
     }
   }

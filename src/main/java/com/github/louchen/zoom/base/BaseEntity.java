@@ -12,6 +12,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Transient;
 import javax.persistence.Version;
+import javax.validation.groups.Default;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -42,6 +43,24 @@ public abstract class BaseEntity<ID extends Serializable> implements Serializabl
      * "版本"属性名称
      */
     public static final String VERSION_PROPERTY_NAME = "version";
+
+    /**
+     * 保存验证组
+     */
+    public interface Save extends Default {
+    }
+
+    /**
+     * 更新验证组
+     */
+    public interface Update extends Default {
+    }
+
+    /**
+     * 基础视图
+     */
+    public interface BaseView {
+    }
 
     @Version
     @Column

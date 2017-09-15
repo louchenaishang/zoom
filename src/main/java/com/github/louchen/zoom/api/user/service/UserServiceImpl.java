@@ -64,6 +64,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
     }
 
     @Override
+    @Transactional
     public User modify(User userToUpdate) {
         AssertUtils.notNull(userToUpdate);
 

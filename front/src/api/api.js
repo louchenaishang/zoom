@@ -96,7 +96,15 @@ const getPrincipal = params => {
 }
 
 const getApiVersion = params => {
-  return axios.get(`${base}/version`, params)
+  return axios.get(`${base}/system/version`, params)
+}
+
+const getSystemSetting = params => {
+  return axios.get(`${base}/system/setting`, params)
+}
+
+const saveSystemSetting = params => {
+  return axios.post(`${base}/system/setting`, params)
 }
 
 const getUserListPage = params => {
@@ -115,13 +123,13 @@ const addUser = params => {
   return axios.post(`${base}/users`, params)
 }
 
-
-
 //对外暴露的api方法
 const Api = {
   requestLogin,
   getPrincipal,
   getApiVersion,
+  getSystemSetting,
+  saveSystemSetting,
   getUserListPage,
   removeUser,
   editUser,
