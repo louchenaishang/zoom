@@ -1,13 +1,25 @@
+ # sys
+sys:
+  storage: /tmp/zoom/storage
+  version: test
+
 # Server configuration
 server:
   port: 8080
-  contextPath:
+  contextPath: /
   compression:
     enabled: true
     mime-types: application/javascript,application/json,text/css,text/html,text/plain
 
 # Spring configuration
 spring:
+  application:
+    name: zoom
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
   jackson:
     serialization:
       INDENT_OUTPUT: true
@@ -15,17 +27,17 @@ spring:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss.SSS
   redis:
-    host: 192.168.99.100
+    host: localhost
     password:
     port: 6379
-  data:
-    mongodb:
-      host: 192.168.99.100
-      port: 27017
-      database: springboot
+    poolConfig:
+      maxTotal: 2000
+      maxIdle: 20
+      maxWaitMillis: 2000
+      testOnBorrow: true
   datasource:
     primary:
-      url: jdbc:mysql://192.168.99.100:3306/springboot
+      url: jdbc:mysql://localhost:3306/springboot
       username: root
       password: 123456
       driver-class-name: com.mysql.jdbc.Driver
@@ -33,21 +45,52 @@ spring:
       validationQuery: SELECT 1
       initial-size: 5
       max-idle: 25
-      max-active: 25
+      max-active: 100
       test-on-borrow: true
   jpa:
-    show-sql: true
+    show-sql: false
     properties:
       hibernate.hbm2ddl.auto: update
       hibernate.format_sql: true
       hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
+      hibernate.cache.use_second_level_cache: false
+      hibernate.cache.use_query_cache: false
       hibernate.current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
-      hibernate.search.default.indexmanager: elasticsearch
-      hibernate.search.default.elasticsearch.required_index_status: yellow
-      hibernate.search.default.elasticsearch.host: http://192.168.99.100:9200
-      hibernate.search.default.elasticsearch.username:
-      hibernate.search.default.elasticsearch.password:
+      hibernate.connection.release_mode: on_close
+      hibernate.connection.isolation: 4
+      hibernate.search.default.directory_provider: filesystem
+      hibernate.search.default.indexBase: ${tmpdir}/zoom_search_index
+#      hibernate.search.default.indexmanager: elasticsearch
+#      hibernate.search.default.elasticsearch.required_index_status: yellow
+#      hibernate.search.default.elasticsearch.host: http://localhost:9200
+#      hibernate.search.default.elasticsearch.username:
+#      hibernate.search.default.elasticsearch.password:
+
+# JWT
+jwt:
+  header: Authorization
+  secret: "zomm-application"
+  expiration: 3600
+  tokenHead: "Bearer "
+  route:
+    authentication:
+      path: "/auth"
+      refresh: "/refresh"
+      register: "/auth/register"
+      principal: "/auth/principal"
+
+# Captcha
+captcha:
+  imageWidth: 80
+  imageHeight: 34
+  charString: ABCDEFGHIJKLMNOPQRSTUVWXYZ
+  charLength: 4
+  charSpace: 2
+  fontColor: white
+  fontSize: 22
+
 # Logging configuration
 logging:
   level:
-    root: info
+    root: WARN
+    com.github.louchen.zoom: INFO

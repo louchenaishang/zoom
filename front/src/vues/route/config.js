@@ -39,7 +39,8 @@ let routes = [
     iconCls: 'fa fa-gears',
     children: [
       {path: '/system/setting', component: SystemSettingView, name: '系统设置', iconCls: 'fa fa-gear'},
-      {path: '/usersList', component: UsersListView, name: '操作人员', iconCls: 'fa fa-user'},
+      {path: '/usersList', component: UsersListView, name: '后台操作人员', iconCls: 'fa fa-user'},
+      {path: '/system/setting', component: SystemSettingView, name: 'Token', iconCls: 'fa fa-list'},
       //{path: '/form', component: Form, name: '表单', iconCls: 'fa fa-user'},
     ]
   },
