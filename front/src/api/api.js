@@ -96,31 +96,31 @@ const getPrincipal = params => {
 }
 
 const getApiVersion = params => {
-  return axios.get(`${base}/system/version`, params)
+  return axios.get(`${base}/admin/system/version`, params)
 }
 
 const getSystemSetting = params => {
-  return axios.get(`${base}/system/setting`, params)
+  return axios.get(`${base}/admin/system/setting`, params)
 }
 
 const saveSystemSetting = params => {
-  return axios.post(`${base}/system/setting`, params)
+  return axios.post(`${base}/admin/system/setting`, params)
 }
 
 const getUserListPage = params => {
-  return axios.get(`${base}/users`, {params: params})
+  return axios.get(`${base}/admin/users`, {params: params})
 }
 
 const removeUser = params => {
-  return axios.delete(`${base}/users/${params.id}`, {params: params})
+  return axios.delete(`${base}/admin/users/${params.id}`, {params: params})
 }
 
 const editUser = params => {
-  return axios.put(`${base}/users/${params.id}`, params)
+  return axios.put(`${base}/admin/users/${params.id}`, params)
 }
 
 const addUser = params => {
-  return axios.post(`${base}/users`, params)
+  return axios.post(`${base}/admin/users`, params)
 }
 
 //对外暴露的api方法

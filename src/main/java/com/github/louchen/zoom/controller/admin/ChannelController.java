@@ -1,4 +1,4 @@
-package com.github.louchen.zoom.api.channel.controller;
+package com.github.louchen.zoom.controller.admin;
 
 import com.github.louchen.zoom.api.channel.model.Channel;
 import com.github.louchen.zoom.api.channel.repository.ChannelRepository;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author louchen
  */
 @RestController
-@RequestMapping(path = "/api/channel")
+@RequestMapping(path = "/api/admin/channel")
 public class ChannelController {
 
     @Autowired

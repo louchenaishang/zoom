@@ -1,8 +1,7 @@
-package com.github.louchen.zoom.api.user.controller;
+package com.github.louchen.zoom.controller.admin;
 
 import com.github.louchen.zoom.api.user.model.User;
 import com.github.louchen.zoom.api.user.service.UserService;
-import com.github.louchen.zoom.utils.AssertUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author louchen
  */
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/admin/users")
 public class UserController {
 
     @Autowired

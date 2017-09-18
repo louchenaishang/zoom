@@ -1,4 +1,4 @@
-package com.github.louchen.zoom;
+package com.github.louchen.zoom.controller;
 
 
 import com.github.louchen.zoom.utils.WebUtils;

@@ -1,4 +1,4 @@
-package com.github.louchen.zoom.api.auth.controller;
+package com.github.louchen.zoom.controller;
 
 import com.github.louchen.zoom.api.auth.service.AuthService;
 import com.github.louchen.zoom.api.user.model.User;

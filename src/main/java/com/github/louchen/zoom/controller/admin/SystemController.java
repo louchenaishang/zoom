@@ -1,4 +1,4 @@
-package com.github.louchen.zoom.api.system;
+package com.github.louchen.zoom.controller.admin;
 
 import com.github.louchen.zoom.api.system.domain.Setting;
 import com.github.louchen.zoom.api.system.model.SystemConfig;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by louchen on 2017/9/15.
  */
 @RestController
-@RequestMapping(path = "/api/system")
+@RequestMapping(path = "/api/admin/system")
 @PreAuthorize("hasRole('USER')")
 public class SystemController extends BaseController {
 

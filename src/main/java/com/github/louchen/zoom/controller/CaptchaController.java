@@ -1,13 +1,11 @@
-package com.github.louchen.zoom.api.captcha.controller;
+package com.github.louchen.zoom.controller;
 
 import com.github.louchen.zoom.api.captcha.service.CaptchaService;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
