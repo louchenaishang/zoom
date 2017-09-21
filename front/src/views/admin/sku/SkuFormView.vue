@@ -6,7 +6,7 @@
       <el-input v-model="form.name"></el-input>
     </el-form-item>
     <el-form-item label="价格" prop="price">
-      <el-input v-model="form.price"></el-input>
+      <el-input v-model.number="form.price"></el-input>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="submitForm('form')" :loading="btnLoading">保存</el-button>
@@ -25,6 +25,7 @@
 
       return {
         form: {
+          id: '',
           name: '',
           price: '',
         },
@@ -57,16 +58,31 @@
             this.$confirm('确认提交吗？', '提示', {}).then(() => {
               this.btnLoading = true
               let para = this.form
-              Api.saveSystemSetting(para).then((res) => {
-                this.btnLoading = false
-                this.$notify({
-                  title: '成功',
-                  message: '提交成功',
-                  type: 'success'
+              if(para.id===''){
+                Api.addSku(para).then((res) => {
+                  this.btnLoading = false
+                  this.$notify({
+                    title: '成功',
+                    message: '提交成功',
+                    type: 'success'
+                  })
+                  this.$router.push({path: '/admin/sku/list'})
+                }).catch((error) => {
+                  this.btnLoading = false
                 })
-              }).catch((error) => {
-                this.btnLoading = false
-              })
+              }else{
+                Api.editSku(para).then((res) => {
+                  this.btnLoading = false
+                  this.$notify({
+                    title: '成功',
+                    message: '提交成功',
+                    type: 'success'
+                  })
+                  this.$router.push({path: '/admin/sku/list'})
+                }).catch((error) => {
+                  this.btnLoading = false
+                })
+              }
             })
           }
         });

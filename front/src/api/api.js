@@ -108,19 +108,35 @@ const saveSystemSetting = params => {
 }
 
 const getUserListPage = params => {
-  return axios.get(`${base}/admin/users`, {params: params})
+  return axios.get(`${base}/admin/user`, {params: params})
 }
 
 const removeUser = params => {
-  return axios.delete(`${base}/admin/users/${params.id}`, {params: params})
+  return axios.delete(`${base}/admin/user/${params.id}`, {params: params})
 }
 
 const editUser = params => {
-  return axios.put(`${base}/admin/users/${params.id}`, params)
+  return axios.put(`${base}/admin/user/${params.id}`, params)
 }
 
 const addUser = params => {
-  return axios.post(`${base}/admin/users`, params)
+  return axios.post(`${base}/admin/user`, params)
+}
+
+const getSkuList = params => {
+  return axios.get(`${base}/admin/sku`, {params: params})
+}
+
+const getSku = params => {
+  return axios.get(`${base}/admin/sku/${params.id}`, {params: params})
+}
+
+const editSku = params => {
+  return axios.put(`${base}/admin/sku/${params.id}`, params)
+}
+
+const addSku = params => {
+  return axios.post(`${base}/admin/sku`, params)
 }
 
 //对外暴露的api方法
@@ -134,6 +150,10 @@ const Api = {
   removeUser,
   editUser,
   addUser,
+  getSkuList,
+  getSku,
+  editSku,
+  addSku,
 }
 
 export default Api

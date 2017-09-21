@@ -20,20 +20,15 @@
       <el-table :data="list" highlight-current-row v-loading="listLoading" style="width: 100%;">
         <el-table-column type="index">
         </el-table-column>
-        <el-table-column prop="username" label="姓名" sortable>
+        <el-table-column prop="name" label="SKU名称" sortable>
         </el-table-column>
-        <el-table-column prop="sex" label="性别" :formatter="formatSex" sortable>
+        <el-table-column prop="price" label="价格" sortable>
         </el-table-column>
         <el-table-column prop="createTime" label="创建时间" :formatter="formatDate" sortable>
-        </el-table-column>
-        <el-table-column prop="mobile" label="手机" sortable>
-        </el-table-column>
-        <el-table-column prop="email" label="邮箱" sortable>
         </el-table-column>
         <el-table-column inline-template :context="_self" label="操作">
 	<span>
 					<el-button size="small" @click="handleEdit(row)" v-if="isAdmin">编辑</el-button>
-					<el-button type="danger" size="small" @click="handleDel(row)" v-if="isAdmin">删除</el-button>
 				</span>
         </el-table-column>
       </el-table>
@@ -92,9 +87,7 @@
           name: this.filters.name
         }
         this.listLoading = true
-        Api.getUserListPage(para).then((res) => {
-          console.log('Api.getUserListPage');
-          console.log(res)
+        Api.getSkuList(para).then((res) => {
           let {content, first, last, size, number, numberOfElements, totalElements, totalPages} = res.data
           this.total = totalElements
           this.list = content
