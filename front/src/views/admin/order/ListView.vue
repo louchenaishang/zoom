@@ -17,12 +17,16 @@
 
     <!--列表-->
     <template>
-      <el-table :data="list" highlight-current-row v-loading="listLoading" style="width: 100%;">
-        <el-table-column type="index">
+      <el-table :data="list" highlight-current-row v-loading="listLoading" :stripe="true" style="width: 100%;">
+        <el-table-column width="90" type="index">
         </el-table-column>
-        <el-table-column prop="name" label="SKU名称" sortable>
+        <el-table-column prop="store" label="店铺" sortable>
         </el-table-column>
-        <el-table-column prop="price" label="价格" sortable>
+        <el-table-column prop="sn" label="订单号" sortable>
+        </el-table-column>
+        <el-table-column prop="amount" label="订单金额" sortable>
+        </el-table-column>
+        <el-table-column prop="member" label="会员" sortable>
         </el-table-column>
         <el-table-column prop="createTime" label="创建时间" :formatter="formatDate" sortable>
         </el-table-column>
@@ -87,7 +91,7 @@
           name: this.filters.name
         }
         this.listLoading = true
-        Api.getSkuList(para).then((res) => {
+        Api.getOrderList(para).then((res) => {
           let {content, first, last, size, number, numberOfElements, totalElements, totalPages} = res.data
           this.total = totalElements
           this.list = content
@@ -96,11 +100,11 @@
       },
       //显示编辑界面
       handleEdit: function (row) {
-        this.$router.push({path: '/admin/sku/form?type=edit&id='+row.id})
+        this.$router.push({path: '/admin/order/form?type=edit&id='+row.id})
       },
       //显示新增界面
       handleAdd: function () {
-        this.$router.push({path: '/admin/sku/form?type=add'})
+        this.$router.push({path: '/admin/order/form?type=add'})
       },
     },
     mounted() {

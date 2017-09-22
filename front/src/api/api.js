@@ -139,6 +139,54 @@ const addSku = params => {
   return axios.post(`${base}/admin/sku`, params)
 }
 
+const getStoreList = params => {
+  return axios.get(`${base}/admin/store`, {params: params})
+}
+
+const getStore = params => {
+  return axios.get(`${base}/admin/store/${params.id}`, {params: params})
+}
+
+const editStore = params => {
+  return axios.put(`${base}/admin/store/${params.id}`, params)
+}
+
+const addStore = params => {
+  return axios.post(`${base}/admin/store`, params)
+}
+
+const getOrderList = params => {
+  return axios.get(`${base}/admin/order`, {params: params})
+}
+
+const getOrder = params => {
+  return axios.get(`${base}/admin/order/${params.id}`, {params: params})
+}
+
+const editOrder = params => {
+  return axios.put(`${base}/admin/order/${params.id}`, params)
+}
+
+const addOrder = params => {
+  return axios.post(`${base}/admin/order`, params)
+}
+
+const getMemberList = params => {
+  return axios.get(`${base}/admin/member`, {params: params})
+}
+
+const getMember = params => {
+  return axios.get(`${base}/admin/member/${params.id}`, {params: params})
+}
+
+const editMember = params => {
+  return axios.put(`${base}/admin/member/${params.id}`, params)
+}
+
+const addMember = params => {
+  return axios.post(`${base}/admin/member`, params)
+}
+
 //对外暴露的api方法
 const Api = {
   requestLogin,
@@ -154,6 +202,18 @@ const Api = {
   getSku,
   editSku,
   addSku,
+  getStoreList,
+  getStore,
+  editStore,
+  addStore,
+  getOrderList,
+  getOrder,
+  editOrder,
+  addOrder,
+  getMemberList,
+  getMember,
+  editMember,
+  addMember,
 }
 
 export default Api

@@ -17,8 +17,8 @@
 
     <!--列表-->
     <template>
-      <el-table :data="users" highlight-current-row v-loading="listLoading" style="width: 100%;">
-        <el-table-column type="index">
+      <el-table :data="users" highlight-current-row v-loading="listLoading" :stripe="true" style="width: 100%;">
+        <el-table-column width="90" type="index">
         </el-table-column>
         <el-table-column prop="username" label="姓名" sortable>
         </el-table-column>
