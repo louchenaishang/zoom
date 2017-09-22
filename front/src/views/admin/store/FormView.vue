@@ -6,7 +6,7 @@
       <el-input v-model="form.name"></el-input>
     </el-form-item>
     <el-form-item label="店铺地址" prop="address">
-      <el-input v-model.number="form.price"></el-input>
+      <el-input v-model.number="form.address"></el-input>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="submitForm('form')" :loading="btnLoading">保存</el-button>

@@ -2,11 +2,17 @@
   <el-form class="form" ref="form" label-position="top"
            :model="form"
            :rules="formRules">
-    <el-form-item label="名称" prop="name">
+    <el-form-item label="订单号" prop="name">
       <el-input v-model="form.name"></el-input>
     </el-form-item>
-    <el-form-item label="价格" prop="price">
-      <el-input v-model.number="form.price"></el-input>
+    <el-form-item label="订单金额" prop="amount">
+      <el-input v-model.number="form.amount"></el-input>
+    </el-form-item>
+    <el-form-item label="店铺" prop="store">
+      <el-input v-model="form.store"></el-input>
+    </el-form-item>
+    <el-form-item label="会员" prop="member">
+      <el-input v-model="form.member"></el-input>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="submitForm('form')" :loading="btnLoading">保存</el-button>
