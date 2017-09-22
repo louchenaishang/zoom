@@ -2,8 +2,8 @@
   <el-form class="form" ref="form" label-position="top"
            :model="form"
            :rules="formRules">
-    <el-form-item label="订单号" prop="name">
-      <el-input v-model="form.name"></el-input>
+    <el-form-item label="订单号" prop="sn">
+      <el-input v-model="form.sn"></el-input>
     </el-form-item>
     <el-form-item label="订单金额" prop="amount">
       <el-input v-model.number="form.amount"></el-input>
