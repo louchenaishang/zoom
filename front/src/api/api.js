@@ -155,6 +155,10 @@ const addStore = params => {
   return axios.post(`${base}/admin/store`, params)
 }
 
+const getStoreTop10 = params => {
+  return axios.get(`${base}/admin/store/top10`, {params: params})
+}
+
 const getOrderList = params => {
   return axios.get(`${base}/admin/order`, {params: params})
 }
@@ -206,6 +210,7 @@ const Api = {
   getStore,
   editStore,
   addStore,
+  getStoreTop10,
   getOrderList,
   getOrder,
   editOrder,

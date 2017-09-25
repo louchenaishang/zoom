@@ -1,5 +1,6 @@
 package com.github.louchen.zoom.controller.admin;
 
+import com.github.louchen.zoom.api.store.domain.StoreEcharts;
 import com.github.louchen.zoom.api.store.model.Store;
 import com.github.louchen.zoom.api.store.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * 控制器 - 店铺
@@ -58,6 +61,12 @@ public class StoreController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void remove(@PathVariable Long id) {
         storeService.delete(id);
+    }
+
+    @PreAuthorize("hasRole('USER')")
+    @RequestMapping(value = "/top10", method = RequestMethod.GET)
+    public List<StoreEcharts> getTopTen() {
+        return storeService.findTopTen();
     }
 
 }

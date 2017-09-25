@@ -12,10 +12,7 @@ import OrderListView from '@/views/admin/order/ListView.vue'
 import OrderFormView from '@/views/admin/order/FormView.vue'
 import MemberListView from '@/views/admin/member/ListView.vue'
 import MemberFormView from '@/views/admin/member/FormView.vue'
-
-
-
-//import EchartsView from '@/views/charts/EchartsView.vue'  //这玩意巨大 5m
+import EchartsView from '@/views/admin/echarts/EchartsView.vue'
 import Form from '@/views/example/Form.vue'
 
 let routes = [
@@ -71,6 +68,7 @@ let routes = [
       {path: '/admin/order/form', component: OrderFormView, name: '订单编辑', iconCls: 'fa fa-circle-o', hidden: true},
       {path: '/admin/member/list', component: MemberListView, name: '会员列表', iconCls: 'fa fa-circle-o'},
       {path: '/admin/member/form', component: MemberFormView, name: '会员', iconCls: 'fa fa-circle-o', hidden: true},
+      {path: '/admin/echarts', component: EchartsView, name: '图表', iconCls: 'fa fa-circle-o'},
     ]
   }
 ]
