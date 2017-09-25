@@ -15,7 +15,7 @@
       <el-input v-model="form.member.name"></el-input>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="submitForm('form')" :loading="btnLoading">保存</el-button>
+      <el-button type="default" @click="back()" :loading="btnLoading">返回</el-button>
     </el-form-item>
   </el-form>
 
@@ -46,13 +46,16 @@
     methods: {
       getDetail(){
         let {id, type} = this.$route.query
-        if(type==='edit'){
+        if(type==='edit'||type==='view'){
           Api.getOrder({id: id}).then((res) => {
             if(res.data!=''){
               this.form = res.data
             }
           })
         }
+      },
+      back(){
+        this.$router.push({path: '/admin/order/list'})
       },
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {

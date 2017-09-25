@@ -9,7 +9,7 @@
       <el-input v-model.number="form.amount"></el-input>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="submitForm('form')" :loading="btnLoading">保存</el-button>
+      <el-button type="default" @click="back()" :loading="btnLoading">返回</el-button>
     </el-form-item>
   </el-form>
 
@@ -30,13 +30,7 @@
           amount: '',
         },
         formRules: {
-          name: [
-            {required: true, message: '请输入名称', trigger: 'blur'},
-          ],
-          amount: [
-            {required: true, message: '请输入价格'},
-            {type: 'number', message: '必须为数字值'}
-          ]
+
         },
         btnLoading: false
       }
@@ -44,13 +38,16 @@
     methods: {
       getDetail(){
         let {id, type} = this.$route.query
-        if(type==='edit'){
+        if(type==='edit'||type==='view'){
           Api.getMember({id: id}).then((res) => {
             if(res.data!=''){
               this.form = res.data
             }
           })
         }
+      },
+      back(){
+        this.$router.push({path: '/admin/member/list'})
       },
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {

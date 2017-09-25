@@ -10,7 +10,7 @@
           <el-button type="primary" @click="getList">查询</el-button>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleAdd">新增</el-button>
+          <!--<el-button type="primary" @click="handleAdd">新增</el-button>-->
         </el-form-item>
       </el-form>
     </el-col>
@@ -28,7 +28,7 @@
         </el-table-column>
         <el-table-column inline-template :context="_self" label="操作">
 	<span>
-					<el-button size="small" @click="handleEdit(row)" v-if="isAdmin">编辑</el-button>
+					<el-button size="small" @click="handleView(row)">查看</el-button>
 				</span>
         </el-table-column>
       </el-table>
@@ -93,6 +93,10 @@
           this.list = content
           this.listLoading = false
         })
+      },
+      //显示查看界面
+      handleView: function (row) {
+        this.$router.push({path: '/admin/member/form?type=view&id='+row.id})
       },
       //显示编辑界面
       handleEdit: function (row) {
