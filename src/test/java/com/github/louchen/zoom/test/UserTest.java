@@ -21,19 +21,16 @@ public class UserTest extends BaseTest {
 
     @Test
     public void init() {
-        userRepository.deleteAll();
-        for (int i = 0; i < 100; i++) {
-            Map<String, String> data = RandomMock.getData();
-            User user = new User();
-            user.setUsername(data.get("name"));
-            user.setMobile(data.get("tel"));
-            user.setPassword(data.get("tel"));
-            user.setSex(data.get("sex"));
-            user.setEmail(data.get("email"));
-            userRepository.save(user);
+        Map<String, String> data = RandomMock.getData();
+        User user = new User();
+        user.setUsername(data.get("name"));
+        user.setMobile(data.get("tel"));
+        user.setPassword(data.get("tel"));
+        user.setSex(data.get("sex"));
+        user.setEmail(data.get("email"));
+        userRepository.save(user);
 
-            log.info(data.toString());
-        }
+        log.info(data.toString());
     }
 
 }
