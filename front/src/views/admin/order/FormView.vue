@@ -9,10 +9,10 @@
       <el-input v-model.number="form.amount"></el-input>
     </el-form-item>
     <el-form-item label="店铺" prop="store">
-      <el-input v-model="form.store"></el-input>
+      <el-input v-model="form.store.name"></el-input>
     </el-form-item>
     <el-form-item label="会员" prop="member">
-      <el-input v-model="form.member"></el-input>
+      <el-input v-model="form.member.name"></el-input>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="submitForm('form')" :loading="btnLoading">保存</el-button>
@@ -34,8 +34,8 @@
           id: '',
           sn: '',
           amount: '',
-          store: '',
-          member: '',
+          store: {},
+          member: {},
         },
         formRules: {
 

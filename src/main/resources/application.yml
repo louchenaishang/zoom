@@ -20,12 +20,6 @@ spring:
       charset: UTF-8
       enabled: true
       force: true
-  jackson:
-    serialization:
-      INDENT_OUTPUT: true
-    locale: zh_CN
-    time-zone: GMT+8
-    date-format: yyyy-MM-dd HH:mm:ss.SSS
   redis:
     host: localhost
     password:

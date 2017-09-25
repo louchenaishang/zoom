@@ -20,13 +20,13 @@
       <el-table :data="list" highlight-current-row v-loading="listLoading" :stripe="true" style="width: 100%;">
         <el-table-column width="90" type="index">
         </el-table-column>
-        <el-table-column prop="store" label="店铺" sortable>
+        <el-table-column prop="store.name" label="店铺" sortable>
         </el-table-column>
         <el-table-column prop="sn" label="订单号" sortable>
         </el-table-column>
         <el-table-column prop="amount" label="订单金额" sortable>
         </el-table-column>
-        <el-table-column prop="member" label="会员" sortable>
+        <el-table-column prop="member.name" label="会员" sortable>
         </el-table-column>
         <el-table-column prop="createTime" label="创建时间" :formatter="formatDate" sortable>
         </el-table-column>
