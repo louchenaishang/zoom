@@ -58,6 +58,6 @@ public class OrderItem extends BaseEntity<Long> {
      */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn
-    private Orders order;
+    private Order order;
 
 }

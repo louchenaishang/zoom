@@ -1,7 +1,7 @@
 package com.github.louchen.zoom.controller.admin;
 
-import com.github.louchen.zoom.api.order.model.Orders;
-import com.github.louchen.zoom.api.order.service.OrdersService;
+import com.github.louchen.zoom.api.order.model.Order;
+import com.github.louchen.zoom.api.order.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,13 +24,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrderController {
 
     @Autowired
-    private OrdersService ordersService;
+    private OrderService orderService;
 
     @PreAuthorize("hasRole('USER')")
     @RequestMapping(method = RequestMethod.GET)
-    public Page<Orders> getList(String name, Integer page, Integer size) {
+    public Page<Order> getList(String name, Integer page, Integer size) {
         PageRequest pageRequest = new PageRequest(page, size);
-        Page<Orders> orders = ordersService.findByPage(pageRequest);
+        Page<Order> orders = orderService.findByPage(pageRequest);
         orders.forEach(o->{
             if(o.getMember()!=null){
                 o.getMember().toString();
@@ -44,8 +44,8 @@ public class OrderController {
 
     @PreAuthorize("hasRole('USER')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Orders get(@PathVariable Long id) {
-        Orders o = ordersService.find(id);
+    public Order get(@PathVariable Long id) {
+        Order o = orderService.find(id);
         if(o.getMember()!=null){
             o.getMember().toString();
         }
@@ -57,22 +57,22 @@ public class OrderController {
 
     @PreAuthorize("hasRole('USER')")
     @RequestMapping(method = RequestMethod.POST)
-    public Orders add(@RequestBody Orders orders) {
-        return ordersService.save(orders);
+    public Order add(@RequestBody Order orders) {
+        return orderService.save(orders);
     }
 
 
     @PreAuthorize("hasRole('USER')")
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public Orders update(@RequestBody Orders orders) {
-        return ordersService.update(orders);
+    public Order update(@RequestBody Order orders) {
+        return orderService.update(orders);
     }
 
     @PreAuthorize("hasRole('USER')")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void remove(@PathVariable Long id) {
-        ordersService.delete(id);
+        orderService.delete(id);
     }
 
 }

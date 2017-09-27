@@ -2,8 +2,8 @@ package com.github.louchen.zoom.test;
 
 import com.github.louchen.zoom.api.member.model.Member;
 import com.github.louchen.zoom.api.member.repository.MemberRepository;
-import com.github.louchen.zoom.api.order.model.Orders;
-import com.github.louchen.zoom.api.order.repository.OrdersRepository;
+import com.github.louchen.zoom.api.order.model.Order;
+import com.github.louchen.zoom.api.order.repository.OrderRepository;
 import com.github.louchen.zoom.api.store.model.Store;
 import com.github.louchen.zoom.api.store.repository.StoreRepository;
 import com.test.base.BaseTest;
@@ -13,16 +13,15 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
-import java.util.Random;
 
 /**
  * Created by louchen on 2017/7/5.
  */
 @Slf4j
-public class OrdersTest extends BaseTest {
+public class OrderTest extends BaseTest {
 
     @Autowired
-    private OrdersRepository ordersRepository;
+    private OrderRepository orderRepository;
     @Autowired
     private MemberRepository memberRepository;
     @Autowired
@@ -38,20 +37,20 @@ public class OrdersTest extends BaseTest {
             Store store = storeRepository.findOne(Long.valueOf(RandomUtils.nextInt(s)));
             Member member = memberRepository.findOne(Long.valueOf(RandomUtils.nextInt(m)));
             if(member!=null&&store!=null){
-                Orders orders = new Orders();
-                orders.setSn((sn++)+"");
-                orders.setStatus(Orders.Status.completed);
-                orders.setAmount(new BigDecimal(RandomUtils.nextInt(20)));
-                orders.setAmountPaid(orders.getAmount());
-                orders.setRefundAmount(BigDecimal.ZERO);
-                orders.setQuantity(0);
-                orders.setShippedQuantity(0);
-                orders.setReturnedQuantity(0);
-                orders.setStore(store);
-                orders.setMember(member);
-                ordersRepository.save(orders);
+                Order order = new Order();
+                order.setSn((sn++)+"");
+                order.setStatus(Order.Status.completed);
+                order.setAmount(new BigDecimal(RandomUtils.nextInt(20)));
+                order.setAmountPaid(order.getAmount());
+                order.setRefundAmount(BigDecimal.ZERO);
+                order.setQuantity(0);
+                order.setShippedQuantity(0);
+                order.setReturnedQuantity(0);
+                order.setStore(store);
+                order.setMember(member);
+                orderRepository.save(order);
 
-                member.setAmount(member.getAmount().add(orders.getAmount()));
+                member.setAmount(member.getAmount().add(order.getAmount()));
                 memberRepository.save(member);
             }
         }

@@ -32,7 +32,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "Orders")
-public class Orders extends BaseEntity<Long> {
+public class Order extends BaseEntity<Long> {
 
 
     /**
@@ -103,7 +103,7 @@ public class Orders extends BaseEntity<Long> {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private Orders.Status status;
+    private Order.Status status;
 
 
     @Column(nullable = false, precision = 21, scale = 2)

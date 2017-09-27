@@ -1,7 +1,7 @@
 package com.github.louchen.zoom.api.order.service;
 
-import com.github.louchen.zoom.api.order.model.Orders;
-import com.github.louchen.zoom.api.order.repository.OrdersRepository;
+import com.github.louchen.zoom.api.order.model.Order;
+import com.github.louchen.zoom.api.order.repository.OrderRepository;
 import com.github.louchen.zoom.base.BaseServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,16 +12,16 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class OrdersServiceImpl extends BaseServiceImpl<Orders, Long> implements OrdersService {
+public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements OrderService {
 
     @Autowired
     private ApplicationEventPublisher applicationEventPublisher;
     @Autowired
-    private OrdersRepository ordersRepository;
+    private OrderRepository orderRepository;
 
     @Override
-    public Page<Orders> findByPage(Pageable pageable) {
-        return ordersRepository.findByPage(pageable);
+    public Page<Order> findByPage(Pageable pageable) {
+        return orderRepository.findByPage(pageable);
     }
 
 }
