@@ -1,6 +1,7 @@
 package com.github.louchen.zoom.api.order.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.louchen.zoom.api.sku.model.Sku;
 import com.github.louchen.zoom.base.BaseEntity;
 import lombok.Data;
@@ -58,6 +59,7 @@ public class OrderItem extends BaseEntity<Long> {
      */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn
+    @JsonIgnore
     private Order order;
 
 }

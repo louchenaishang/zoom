@@ -18,6 +18,36 @@
     <!--列表-->
     <template>
       <el-table :data="list" highlight-current-row v-loading="listLoading" :stripe="true" style="width: 100%;">
+        <el-table-column type="expand">
+          <template scope="props">
+            <el-form label-position="left" inline class="demo-table-expand">
+              <el-form-item label="所属店铺">
+                <span>{{ props.row.store.name }}</span>
+              </el-form-item>
+              <el-form-item label="店铺 ID">
+                <span>{{ props.row.store.id }}</span>
+              </el-form-item>
+              <el-form-item label="店铺地址">
+                <span>{{ props.row.store.address }}</span>
+              </el-form-item>
+              <el-form-item label="订单状态">
+                <span>{{ props.row.status }}</span>
+              </el-form-item>
+              <el-form-item label="订单金额">
+                <span>{{ props.row.amount }}</span>
+              </el-form-item>
+              <el-form-item label="订单实付">
+                <span>{{ props.row.amountPaid }}</span>
+              </el-form-item>
+              <el-form-item label="会员 ID">
+                <span>{{ props.row.member.id }}</span>
+              </el-form-item>
+              <el-form-item label="会员">
+                <span>{{ props.row.member.name }}</span>
+              </el-form-item>
+            </el-form>
+          </template>
+        </el-table-column>
         <el-table-column width="90" type="index">
         </el-table-column>
         <el-table-column prop="store.name" label="店铺" sortable>
@@ -46,6 +76,21 @@
     </el-col>
   </section>
 </template>
+
+<style>
+  .demo-table-expand {
+    font-size: 0;
+  }
+  .demo-table-expand label {
+    width: 90px;
+    color: #99a9bf;
+  }
+  .demo-table-expand .el-form-item {
+    margin-right: 0;
+    margin-bottom: 0;
+    width: 50%;
+  }
+</style>
 
 <script>
   import {mapGetters, mapActions} from 'vuex'
