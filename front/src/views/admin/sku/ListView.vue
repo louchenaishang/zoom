@@ -24,7 +24,11 @@
         </el-table-column>
         <el-table-column prop="price" label="价格" sortable>
         </el-table-column>
-        <el-table-column prop="createTime" label="创建时间" :formatter="formatDate" sortable>
+        <el-table-column label="创建时间" sortable>
+          <template scope="scope">
+            <el-icon name="time"></el-icon>
+            <span style="margin-left: 10px">{{ scope.row.createTime }}</span>
+          </template>
         </el-table-column>
         <el-table-column inline-template :context="_self" label="操作">
 	<span>

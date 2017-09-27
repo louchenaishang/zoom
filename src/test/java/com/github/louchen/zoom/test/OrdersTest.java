@@ -33,14 +33,20 @@ public class OrdersTest extends BaseTest {
         int sn = 200;
         int s = 800;
         int m = 1000;
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 100; i++) {
 
             Store store = storeRepository.findOne(Long.valueOf(RandomUtils.nextInt(s)));
             Member member = memberRepository.findOne(Long.valueOf(RandomUtils.nextInt(m)));
             if(member!=null&&store!=null){
                 Orders orders = new Orders();
                 orders.setSn((sn++)+"");
+                orders.setStatus(Orders.Status.completed);
                 orders.setAmount(new BigDecimal(RandomUtils.nextInt(20)));
+                orders.setAmountPaid(orders.getAmount());
+                orders.setRefundAmount(BigDecimal.ZERO);
+                orders.setQuantity(0);
+                orders.setShippedQuantity(0);
+                orders.setReturnedQuantity(0);
                 orders.setStore(store);
                 orders.setMember(member);
                 ordersRepository.save(orders);
