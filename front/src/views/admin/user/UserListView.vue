@@ -33,7 +33,7 @@
         <el-table-column inline-template :context="_self" label="操作">
 	<span>
 					<el-button size="small" @click="handleEdit(row)" v-if="isAdmin">编辑</el-button>
-					<el-button type="danger" size="small" @click="handleDel(row)" v-if="isAdmin">删除</el-button>
+					<!--<el-button type="danger" size="small" @click="handleDel(row)" v-if="isAdmin">删除</el-button>-->
 				</span>
         </el-table-column>
       </el-table>
