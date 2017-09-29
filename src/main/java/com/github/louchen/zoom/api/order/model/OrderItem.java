@@ -50,7 +50,7 @@ public class OrderItem extends BaseEntity<Long> {
     /**
      * SKU
      */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn
     private Sku sku;
 

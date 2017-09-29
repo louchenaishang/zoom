@@ -15,6 +15,18 @@
       <el-input v-model="form.member.name"></el-input>
     </el-form-item>
     <el-form-item>
+
+      <el-table :data="form.orderItems" highlight-current-row :stripe="true" style="width: 100%;">
+        <el-table-column width="90" type="index">
+        </el-table-column>
+        <el-table-column prop="sku.name" label="SKU" sortable>
+        </el-table-column>
+        <el-table-column prop="quantity" label="数量" sortable>
+        </el-table-column>
+        <el-table-column prop="amount" label="金额" sortable>
+        </el-table-column>
+      </el-table>
+
       <el-button type="default" @click="back()" :loading="btnLoading">返回</el-button>
     </el-form-item>
   </el-form>
@@ -36,6 +48,7 @@
           amount: '',
           store: {},
           member: {},
+          orderItems: [],
         },
         formRules: {
 
