@@ -1,5 +1,7 @@
 # SpringBootRest + Vue
 
+## api doc
+http://host:port/swagger-ui.html
 
 ## 开发 
 
